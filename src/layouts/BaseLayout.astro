@@ -1,0 +1,54 @@
+---
+import '../styles/global.css';
+import { absoluteUrl, localeMeta, type Locale } from '../lib/i18n';
+import { site } from '../lib/site';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  canonicalPath: string;
+  alternates?: Partial<Record<Locale, string>>;
+  xDefaultPath?: string;
+}
+
+const {
+  locale,
+  title,
+  description,
+  canonicalPath,
+  alternates = {},
+  xDefaultPath = '/',
+} = Astro.props;
+
+const canonical = absoluteUrl(canonicalPath);
+const htmlLang = localeMeta[locale].htmlLang;
+---
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {Object.entries(alternates).map(([lang, path]) => (
+      <link rel="alternate" hreflang={localeMeta[lang as Locale].htmlLang} href={absoluteUrl(path!)} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={absoluteUrl(xDefaultPath)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} — ${localeMeta[locale].label}`} href={absoluteUrl(`/${locale}/rss.xml`)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,16 @@
+---
+import { localeMeta, locales, type Locale } from '../lib/i18n';
+
+interface Props {
+  locale: Locale;
+  paths: Partial<Record<Locale, string>>;
+}
+const { locale, paths } = Astro.props;
+---
+<nav class="language-switch" aria-label="Language">
+  {locales.map((item) => paths[item] ? (
+    <a href={paths[item]} lang={localeMeta[item].htmlLang} hreflang={localeMeta[item].htmlLang} aria-current={item === locale ? 'page' : undefined}>
+      {localeMeta[item].short}
+    </a>
+  ) : null)}
+</nav>

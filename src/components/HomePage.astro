@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import { copy, localePath, locales, type Locale } from '../lib/i18n';
+import { getPublishedPosts } from '../lib/blog';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const c = copy[locale];
+const posts = (await getPublishedPosts(locale)).slice(0, 3);
+const alternates = Object.fromEntries(locales.map((l) => [l, localePath(l)]));
+---
+<BaseLayout locale={locale} title={c.metaTitle} description={c.metaDescription} canonicalPath={localePath(locale)} alternates={alternates}>
+  <Header locale={locale} currentSection="home" />
+  <main>
+    <section class="hero shell">
+      <p class="eyebrow">{c.brandExpansion}</p>
+      <h1>{c.headline}</h1>
+      <p class="lede">{c.body}</p>
+      <div class="hero-links">
+        <a class="button" href={localePath(locale, 'blog')}>{c.blog}</a>
+      </div>
+    </section>
+    <section class="latest shell" aria-labelledby="latest-title">
+      <div class="section-heading">
+        <h2 id="latest-title">{c.latest}</h2>
+        <span class="oxide-rule" aria-hidden="true"></span>
+      </div>
+      {posts.length ? (
+        <div class="post-grid">
+          {posts.map((post) => (
+            <article class="post-card">
+              <p class="post-meta">{post.data.category || c.blog} · <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString(locale === 'zh-hans' ? 'zh-CN' : locale)}</time></p>
+              <h3><a href={localePath(locale, `blog/${post.data.slug}`)}>{post.data.title}</a></h3>
+              <p>{post.data.description}</p>
+            </article>
+          ))}
+        </div>
+      ) : <p class="muted">{c.noPosts}</p>}
+    </section>
+  </main>
+  <Footer locale={locale} />
+</BaseLayout>

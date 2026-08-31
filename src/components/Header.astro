@@ -1,0 +1,22 @@
+---
+import LanguageSwitch from './LanguageSwitch.astro';
+import { copy, localePath, locales, type Locale } from '../lib/i18n';
+import { site } from '../lib/site';
+
+interface Props { locale: Locale; currentSection?: 'home' | 'blog'; }
+const { locale, currentSection = 'home' } = Astro.props;
+const c = copy[locale];
+const paths = Object.fromEntries(locales.map((l) => [l, currentSection === 'blog' ? localePath(l, 'blog') : localePath(l)]));
+---
+<header class="site-header shell">
+  <a class="brand-link" href={localePath(locale)} aria-label="FormaSL">
+    <img src="/brand/formasl.svg" alt="FormaSL" width="210" height="56" />
+  </a>
+  <div class="header-actions">
+    <nav class="main-nav" aria-label="Primary">
+      <a href={localePath(locale, 'blog')}>{c.blog}</a>
+      {site.githubUrl && <a href={site.githubUrl} rel="me">{c.github}</a>}
+    </nav>
+    <LanguageSwitch locale={locale} paths={paths} />
+  </div>
+</header>
