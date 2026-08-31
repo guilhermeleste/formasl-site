@@ -59,6 +59,8 @@ html:lang(zh-Hans) h1 { letter-spacing: -0.03em; line-height: 1.08; }
 .article-header { border-bottom: 1px solid var(--line); padding-bottom: 38px; margin-bottom: 52px; }
 .article-header h1 { font-size: clamp(3rem, 6vw, 5.6rem); }
 .article-header .language-switch { border-left: 0; padding-left: 0; margin-top: 24px; }
+.article-hero { margin: 0 0 58px; }
+.article-hero img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--line); background: var(--paper); }
 .prose { font-size: 1.08rem; line-height: 1.75; }
 .prose h2 { margin-top: 2.6em; font-size: 2rem; line-height: 1.15; }
 .prose h3 { margin-top: 2em; font-size: 1.35rem; }
@@ -88,6 +90,7 @@ html:lang(zh-Hans) h1 { letter-spacing: -0.03em; line-height: 1.08; }
   .post-card, .post-card + .post-card { border-right: 0; border-bottom: 1px solid var(--line); padding: 24px 0; }
   .site-footer { grid-template-columns: 1fr; align-items: start; }
   .post-list article { grid-template-columns: 1fr; gap: 8px; }
+  .article-hero { margin-bottom: 42px; }
   .language-options { grid-template-columns: 1fr; }
   .language-options a, .language-options a + a { border-right: 0; border-bottom: 1px solid var(--line); padding: 16px 0; }
 }
