@@ -26,6 +26,11 @@ const canonicalPath = localePath(locale, `blog/${post.data.slug}`);
         <p class="post-meta"><time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString(locale === 'zh-hans' ? 'zh-CN' : locale)}</time> · {post.data.authors.join(', ')}</p>
         <LanguageSwitch locale={locale} paths={paths} />
       </header>
+      {post.data.hero && post.data.heroAlt && (
+        <figure class="article-hero">
+          <img src={post.data.hero} alt={post.data.heroAlt} width="1600" height="900" loading="eager" decoding="async" />
+        </figure>
+      )}
       <div class="prose"><Content /></div>
       <p class="article-back"><a href={localePath(locale, 'blog')}>← {c.backToBlog}</a></p>
     </article>
