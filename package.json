@@ -8,11 +8,13 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "generate-assets": "node scripts/generate-social-assets.mjs",
+    "build": "npm run generate-assets && astro build",
     "preview": "astro preview",
     "validate": "node scripts/validate-site.mjs"
   },
   "dependencies": {
-    "astro": "7.2.10"
+    "astro": "7.2.10",
+    "sharp": "^0.34.4"
   }
 }
