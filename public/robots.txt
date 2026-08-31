@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://formasl.org/sitemap.xml

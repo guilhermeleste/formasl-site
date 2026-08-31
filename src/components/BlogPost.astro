@@ -1,0 +1,34 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import LanguageSwitch from './LanguageSwitch.astro';
+import { copy, localePath, type Locale } from '../lib/i18n';
+import { getTranslations } from '../lib/blog';
+
+interface Props { locale: Locale; post: CollectionEntry<'blog'>; }
+const { locale, post } = Astro.props;
+const c = copy[locale];
+const { Content } = await render(post);
+const translations = await getTranslations(post.data.translationKey);
+const paths = Object.fromEntries(Object.entries(translations).map(([lang, slug]) => [lang, localePath(lang as Locale, `blog/${slug}`)]));
+const canonicalPath = localePath(locale, `blog/${post.data.slug}`);
+---
+<BaseLayout locale={locale} title={`${post.data.title} — FormaSL`} description={post.data.description} canonicalPath={canonicalPath} alternates={paths} xDefaultPath={canonicalPath}>
+  <Header locale={locale} currentSection="blog" />
+  <main class="shell article-page">
+    <article>
+      <header class="article-header">
+        <p class="eyebrow">{post.data.category || c.blog}</p>
+        <h1>{post.data.title}</h1>
+        <p class="lede smaller">{post.data.description}</p>
+        <p class="post-meta"><time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString(locale === 'zh-hans' ? 'zh-CN' : locale)}</time> · {post.data.authors.join(', ')}</p>
+        <LanguageSwitch locale={locale} paths={paths} />
+      </header>
+      <div class="prose"><Content /></div>
+      <p class="article-back"><a href={localePath(locale, 'blog')}>← {c.backToBlog}</a></p>
+    </article>
+  </main>
+  <Footer locale={locale} />
+</BaseLayout>

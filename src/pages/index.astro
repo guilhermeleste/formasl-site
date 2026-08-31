@@ -1,0 +1,29 @@
+---
+import '../styles/global.css';
+import { localeMeta, locales } from '../lib/i18n';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>FormaSL</title>
+    <meta name="description" content="FormaSL — Forma Semantic Language" />
+    <link rel="canonical" href="https://formasl.org/" />
+    {locales.map((locale) => <link rel="alternate" hreflang={localeMeta[locale].htmlLang} href={`https://formasl.org/${locale}/`} />)}
+    <link rel="alternate" hreflang="x-default" href="https://formasl.org/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <main class="language-gateway">
+      <section class="language-card">
+        <img src="/brand/formasl.svg" alt="FormaSL" width="210" height="56" />
+        <p class="eyebrow">Forma Semantic Language</p>
+        <h1>Choose language</h1>
+        <nav class="language-options" aria-label="Language">
+          {locales.map((locale) => <a href={`/${locale}/`} lang={localeMeta[locale].htmlLang}>{localeMeta[locale].label}</a>)}
+        </nav>
+      </section>
+    </main>
+  </body>
+</html>

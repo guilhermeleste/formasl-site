@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import { copy, localePath, locales, type Locale } from '../lib/i18n';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const c = copy[locale];
+const alternates = Object.fromEntries(locales.map((l) => [l, localePath(l, 'privacy')]));
+---
+<BaseLayout locale={locale} title={`${c.privacy} — FormaSL`} description={c.privacyText} canonicalPath={localePath(locale, 'privacy')} alternates={alternates}>
+  <Header locale={locale} />
+  <main class="shell editorial-page narrow">
+    <header class="page-title"><h1>{c.privacy}</h1></header>
+    <p class="lede smaller">{c.privacyText}</p>
+  </main>
+  <Footer locale={locale} />
+</BaseLayout>
