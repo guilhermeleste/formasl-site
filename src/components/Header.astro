@@ -1,12 +1,17 @@
 ---
 import LanguageSwitch from './LanguageSwitch.astro';
-import { copy, localePath, locales, type Locale } from '../lib/i18n';
+import { copy, glossaryPath, localePath, locales, type Locale } from '../lib/i18n';
 import { site } from '../lib/site';
 
-interface Props { locale: Locale; currentSection?: 'home' | 'blog'; }
+interface Props { locale: Locale; currentSection?: 'home' | 'blog' | 'glossary' | 'privacy'; }
 const { locale, currentSection = 'home' } = Astro.props;
 const c = copy[locale];
-const paths = Object.fromEntries(locales.map((l) => [l, currentSection === 'blog' ? localePath(l, 'blog') : localePath(l)]));
+const paths = Object.fromEntries(locales.map((l) => [l,
+  currentSection === 'blog' ? localePath(l, 'blog') :
+  currentSection === 'glossary' ? glossaryPath(l) :
+  currentSection === 'privacy' ? localePath(l, 'privacy') :
+  localePath(l),
+]));
 ---
 <header class="site-header shell">
   <a class="brand-link" href={localePath(locale)} aria-label="FormaSL">

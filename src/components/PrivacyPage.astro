@@ -9,7 +9,7 @@ const c = copy[locale];
 const alternates = Object.fromEntries(locales.map((l) => [l, localePath(l, 'privacy')]));
 ---
 <BaseLayout locale={locale} title={`${c.privacy} — FormaSL`} description={c.privacyText} canonicalPath={localePath(locale, 'privacy')} alternates={alternates}>
-  <Header locale={locale} />
+  <Header locale={locale} currentSection="privacy" />
   <main class="shell editorial-page narrow">
     <header class="page-title"><h1>{c.privacy}</h1></header>
     <p class="lede smaller">{c.privacyText}</p>

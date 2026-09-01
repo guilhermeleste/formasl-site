@@ -1,5 +1,5 @@
 ---
-import { copy, localePath, type Locale } from '../lib/i18n';
+import { copy, glossaryPath, localePath, type Locale } from '../lib/i18n';
 import { site } from '../lib/site';
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
@@ -8,10 +8,10 @@ const c = copy[locale];
 <footer class="site-footer shell">
   <div class="footer-origin">
     <img src="/brand/forma-research-lab.svg" alt="Forma Research Lab" width="230" height="52" loading="lazy" />
-    <span>{c.developedBy}</span>
   </div>
   <nav aria-label="Footer">
     <a href={localePath(locale, 'blog')}>{c.blog}</a>
+    <a href={glossaryPath(locale)}>{c.glossary}</a>
     <a href={`mailto:${site.contactEmail}`}>{c.contact}</a>
     <a href={localePath(locale, 'privacy')}>{c.privacy}</a>
   </nav>

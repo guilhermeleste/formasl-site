@@ -1,0 +1,54 @@
+---
+import '../styles/glossary.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import { conceptAuthorityNote, conceptAuthorityUrl, concepts } from '../data/concepts';
+import { absoluteUrl, copy, glossaryPath, localeMeta, locales, type Locale } from '../lib/i18n';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const c = copy[locale];
+const canonicalPath = glossaryPath(locale);
+const alternates = Object.fromEntries(locales.map((l) => [l, glossaryPath(l)]));
+const canonical = absoluteUrl(canonicalPath);
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  '@id': `${canonical}#terms`,
+  name: c.glossary,
+  description: c.glossaryIntro,
+  inLanguage: localeMeta[locale].htmlLang,
+  url: canonical,
+  hasDefinedTerm: concepts.map((concept) => ({
+    '@type': 'DefinedTerm',
+    '@id': `${canonical}#${concept.id}`,
+    name: concept.names[locale],
+    description: concept.short[locale],
+    url: `${canonical}#${concept.id}`,
+    inDefinedTermSet: { '@id': `${canonical}#terms` },
+  })),
+};
+---
+<BaseLayout locale={locale} title={`${c.glossary} — FormaSL`} description={c.glossaryIntro} canonicalPath={canonicalPath} alternates={alternates} structuredData={structuredData}>
+  <Header locale={locale} currentSection="glossary" />
+  <main class="shell glossary-page">
+    <header class="editorial-intro editorial-intro-page">
+      <p class="section-kicker">FormaSL</p>
+      <h1>{c.glossary}</h1>
+      <p class="lede smaller">{c.glossaryIntro}</p>
+    </header>
+    <div class="glossary-list">
+      {concepts.map((concept) => (
+        <article class="glossary-term" id={concept.id}>
+          <h2>{concept.names[locale]}</h2>
+          <p class="definition-short">{concept.short[locale]}</p>
+          <p>{concept.expanded[locale]}</p>
+          <p class="definition-boundary"><strong>{c.notConfusedWith}:</strong> {concept.notConfusedWith[locale]}</p>
+          <p class="authority-note"><strong>{c.authority}:</strong> {conceptAuthorityNote[locale]} <a href={conceptAuthorityUrl}>FormaSL GitHub</a>.</p>
+        </article>
+      ))}
+    </div>
+  </main>
+  <Footer locale={locale} />
+</BaseLayout>

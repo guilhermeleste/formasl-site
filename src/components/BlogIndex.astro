@@ -2,32 +2,55 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
-import { copy, localePath, locales, type Locale } from '../lib/i18n';
-import { getPublishedPosts } from '../lib/blog';
+import { getAuthor, getEditorialMeta, getSeries } from '../data/editorial';
+import { getSeriesPosts } from '../lib/blog';
+import { formatEditorialDate } from '../lib/dates';
+import { copy, localePath, locales, partLabel, type Locale } from '../lib/i18n';
+import { seriesStructuredData } from '../lib/structured-data';
+
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const c = copy[locale];
-const posts = await getPublishedPosts(locale);
+const posts = await getSeriesPosts(locale);
+const firstMeta = posts[0] ? getEditorialMeta(posts[0].data) : undefined;
+const series = getSeries(firstMeta?.seriesKey);
+const author = getAuthor(firstMeta?.authorKey);
 const alternates = Object.fromEntries(locales.map((l) => [l, localePath(l, 'blog')]));
-const title = `${c.blog} — FormaSL`;
+const title = `${series?.titles[locale] ?? c.blog} — FormaSL`;
+const description = series?.descriptions[locale] ?? c.metaDescription;
+const structuredData = seriesStructuredData(locale, posts);
 ---
-<BaseLayout locale={locale} title={title} description={c.metaDescription} canonicalPath={localePath(locale, 'blog')} alternates={alternates}>
+<BaseLayout locale={locale} title={title} description={description} canonicalPath={localePath(locale, 'blog')} alternates={alternates} structuredData={structuredData}>
   <Header locale={locale} currentSection="blog" />
-  <main class="shell editorial-page">
-    <header class="page-title">
-      <p class="eyebrow">FormaSL</p>
-      <h1>{c.blog}</h1>
+  <main class="shell editorial-page series-page">
+    <header class="editorial-intro editorial-intro-page">
+      <p class="section-kicker">{c.blog}</p>
+      <h1>{series?.titles[locale] ?? c.blog}</h1>
+      {series && <p class="lede smaller">{series.descriptions[locale]}</p>}
+      {author && (
+        <p class="series-byline">
+          <span>{c.by} <strong>{author.name}</strong></span>
+          <span>{author.roles[locale]}</span>
+        </p>
+      )}
     </header>
     {posts.length ? (
-      <div class="post-list">
-        {posts.map((post) => (
-          <article>
-            <p class="post-meta"><time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString(locale === 'zh-hans' ? 'zh-CN' : locale)}</time>{post.data.category ? ` · ${post.data.category}` : ''}</p>
-            <h2><a href={localePath(locale, `blog/${post.data.slug}`)}>{post.data.title}</a></h2>
-            <p>{post.data.description}</p>
-          </article>
-        ))}
-      </div>
+      <ol class="series-index">
+        {posts.map((post) => {
+          const meta = getEditorialMeta(post.data);
+          return (
+            <li>
+              <div class="series-number" aria-hidden="true">{meta.part ? String(meta.part).padStart(2, '0') : '—'}</div>
+              <article>
+                {meta.part && <p class="post-meta">{partLabel(locale, meta.part)}</p>}
+                <h2><a href={localePath(locale, `blog/${post.data.slug}`)}>{post.data.title}</a></h2>
+                <p>{post.data.description}</p>
+              </article>
+              <time datetime={post.data.date.toISOString()}>{formatEditorialDate(post.data.date, locale)}</time>
+            </li>
+          );
+        })}
+      </ol>
     ) : <p class="muted">{c.noPosts}</p>}
   </main>
   <Footer locale={locale} />

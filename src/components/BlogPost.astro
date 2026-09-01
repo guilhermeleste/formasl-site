@@ -4,8 +4,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import LanguageSwitch from './LanguageSwitch.astro';
-import { copy, localePath, type Locale } from '../lib/i18n';
-import { getTranslations } from '../lib/blog';
+import { getAuthor, getEditorialMeta, getSeries } from '../data/editorial';
+import { getSeriesNeighbors, getTranslations } from '../lib/blog';
+import { editorialDateISO, editorialDateTime, formatEditorialDate } from '../lib/dates';
+import { articleStructuredData } from '../lib/structured-data';
+import { copy, localePath, partLabel, type Locale } from '../lib/i18n';
 
 interface Props { locale: Locale; post: CollectionEntry<'blog'>; }
 const { locale, post } = Astro.props;
@@ -14,25 +17,60 @@ const { Content } = await render(post);
 const translations = await getTranslations(post.data.translationKey);
 const paths = Object.fromEntries(Object.entries(translations).map(([lang, slug]) => [lang, localePath(lang as Locale, `blog/${slug}`)]));
 const canonicalPath = localePath(locale, `blog/${post.data.slug}`);
+const meta = getEditorialMeta(post.data);
+const series = getSeries(meta.seriesKey);
+const author = getAuthor(meta.authorKey);
+const { previous, next } = await getSeriesNeighbors(post);
+const socialImagePath = meta.socialImage ?? post.data.hero ?? `/og/${locale}.png`;
+const structuredData = articleStructuredData(locale, post, canonicalPath, socialImagePath);
+const publishedTime = editorialDateTime(post.data.date);
+const modifiedTime = editorialDateTime(post.data.updated ?? post.data.date);
 ---
-<BaseLayout locale={locale} title={`${post.data.title} — FormaSL`} description={post.data.description} canonicalPath={canonicalPath} alternates={paths} xDefaultPath={canonicalPath} ogType="article" socialImagePath={post.data.hero}>
+<BaseLayout
+  locale={locale}
+  title={`${post.data.title} — FormaSL`}
+  description={post.data.description}
+  canonicalPath={canonicalPath}
+  alternates={paths}
+  ogType="article"
+  socialImagePath={socialImagePath}
+  socialImageAlt={post.data.title}
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
+  structuredData={structuredData}
+>
   <Header locale={locale} currentSection="blog" />
   <main class="shell article-page">
     <article>
       <header class="article-header">
-        <p class="eyebrow">{post.data.category || c.blog}</p>
+        {series && meta.part && <p class="series-label">{series.titles[locale]} · {partLabel(locale, meta.part)}</p>}
         <h1>{post.data.title}</h1>
-        <p class="lede smaller">{post.data.description}</p>
-        <p class="post-meta"><time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString(locale === 'zh-hans' ? 'zh-CN' : locale)}</time> · {post.data.authors.join(', ')}</p>
+        <p class="article-deck">{post.data.description}</p>
+        <div class="article-attribution">
+          {author && (
+            <p class="article-author"><span>{c.by}</span> <strong>{author.name}</strong><br /><span>{author.roles[locale]}</span></p>
+          )}
+          <p class="article-date"><time datetime={editorialDateISO(post.data.date)}>{formatEditorialDate(post.data.date, locale)}</time></p>
+        </div>
         <LanguageSwitch locale={locale} paths={paths} />
       </header>
       {post.data.hero && post.data.heroAlt && (
-        <figure class="article-hero">
-          <img src={post.data.hero} alt={post.data.heroAlt} width="1600" height="900" loading="eager" decoding="async" />
+        <figure class="article-figure">
+          <img src={post.data.hero} alt={post.data.heroAlt} width="1440" height="960" loading="eager" decoding="async" />
         </figure>
       )}
       <div class="prose"><Content /></div>
-      <p class="article-back"><a href={localePath(locale, 'blog')}>← {c.backToBlog}</a></p>
+      {series && (
+        <nav class="article-navigation" aria-label="Article series navigation">
+          <div class="article-navigation-side">
+            {previous ? <a href={localePath(locale, `blog/${previous.data.slug}`)}>← {c.previous}<span>{previous.data.title}</span></a> : <span></span>}
+          </div>
+          <a class="article-navigation-series" href={localePath(locale, 'blog')}>{series.titles[locale]}</a>
+          <div class="article-navigation-side next">
+            {next ? <a href={localePath(locale, `blog/${next.data.slug}`)}>{c.next} →<span>{next.data.title}</span></a> : <span></span>}
+          </div>
+        </nav>
+      )}
     </article>
   </main>
   <Footer locale={locale} />
