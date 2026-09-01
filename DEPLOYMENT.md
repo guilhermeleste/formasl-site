@@ -8,7 +8,7 @@ The site is a fully static Astro build. No Cloudflare adapter is required.
 - Framework preset: `Astro`
 - Build command: `npm run build`
 - Build output directory: `dist`
-- Node.js: `22.12.0` or newer
+- Node.js: `22.20.0` recommended; `22.19.0` or newer required by the current dependency graph.
 
 ## Optional environment variables
 
@@ -22,7 +22,9 @@ Attach `formasl.org` as the canonical domain. If `www.formasl.org` is attached, 
 ## Pre-launch checks
 
 1. `npm install`
-2. `npm run validate`
-3. `npm run build`
-4. Inspect `/en/`, `/pt-br/`, `/zh-hans/`, `/sitemap.xml`, and all RSS routes in a preview deployment.
-5. Confirm `hello@formasl.org` and the public GitHub destination before enabling those links.
+2. `npm run design:lint`
+3. `npm run validate`
+4. `npm run build`
+5. Inspect `/en/`, `/pt-br/`, `/zh-hans/`, `/sitemap.xml`, `/llms.txt`, all RSS routes and at least one article per locale in a preview deployment.
+6. Confirm `hello@formasl.org` and the public GitHub destination before enabling those links.
+7. Run the Cloudflare access regression matrix documented in `CLOUDFLARE.md` before changing security, locale routing or Markdown negotiation at the edge.
