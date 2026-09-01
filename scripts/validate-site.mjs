@@ -5,7 +5,15 @@ const root = path.resolve(import.meta.dirname, '..');
 const locales = ['en', 'pt-br', 'zh-hans'];
 const required = [
   'astro.config.mjs',
+  'DESIGN.md',
+  'BRAND.md',
+  'CLOUDFLARE.md',
+  'DEPLOYMENT.md',
+  'I18N.md',
+  'EDITORIAL-ILLUSTRATIONS.md',
   'src/content.config.ts',
+  'src/data/editorial.ts',
+  'src/data/concepts.ts',
   'src/pages/index.astro',
   'src/pages/en/index.astro',
   'src/pages/pt-br/index.astro',
@@ -13,17 +21,19 @@ const required = [
   'src/pages/en/blog/index.astro',
   'src/pages/pt-br/blog/index.astro',
   'src/pages/zh-hans/blog/index.astro',
+  'src/pages/en/glossary.astro',
+  'src/pages/pt-br/glossario.astro',
+  'src/pages/zh-hans/glossary.astro',
   'src/pages/en/rss.xml.ts',
   'src/pages/pt-br/rss.xml.ts',
   'src/pages/zh-hans/rss.xml.ts',
   'src/pages/sitemap.xml.ts',
+  'src/pages/llms.txt.ts',
   'public/brand/formasl.svg',
   'public/brand/forma-research-lab.svg',
   'public/favicon.svg',
   'public/robots.txt',
-  'I18N.md',
-  'BRAND.md',
-  'DEPLOYMENT.md',
+  'public/_headers',
   'src/pages/en/privacy.astro',
   'src/pages/pt-br/privacy.astro',
   'src/pages/zh-hans/privacy.astro',
@@ -48,6 +58,12 @@ for (const rel of ['public/brand/formasl.svg', 'public/brand/forma-research-lab.
   if (/<text\b/i.test(svg)) fail(`${rel} contains live <text>; canonical wordmarks must remain outlined.`);
 }
 
+const robots = fs.readFileSync(path.join(root, 'public/robots.txt'), 'utf8');
+if (!robots.includes('Sitemap: https://formasl.org/sitemap.xml')) fail('robots.txt must reference the canonical sitemap.');
+if (!robots.includes('Content-Signal: search=yes, ai-input=yes, ai-train=no')) fail('robots.txt must preserve the public Content Signals policy.');
+const headers = fs.readFileSync(path.join(root, 'public/_headers'), 'utf8');
+if (!headers.toLowerCase().includes('content-signal: search=yes, ai-input=yes, ai-train=no')) fail('public/_headers must preserve the public Content Signals policy.');
+
 const frontmatterValue = (text, field) => {
   const match = text.match(new RegExp(`^${field}:\\s*(?:"([^"]*)"|'([^']*)'|([^\\n]+))`, 'm'));
   return match ? (match[1] ?? match[2] ?? match[3]).trim() : null;
@@ -66,6 +82,8 @@ for (const locale of locales) {
     const hero = frontmatterValue(text, 'hero');
     const heroAlt = frontmatterValue(text, 'heroAlt');
     if ((hero && !heroAlt) || (!hero && heroAlt)) fail(`${path.relative(root, file)} must define hero and heroAlt together.`);
+    const date = frontmatterValue(text, 'date');
+    if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) fail(`${path.relative(root, file)} date must be a calendar date in YYYY-MM-DD form.`);
 
     const end = text.indexOf('\n---', 4);
     const body = end >= 0 ? text.slice(end + 4).trim() : '';
@@ -73,13 +91,13 @@ for (const locale of locales) {
       locale,
       name,
       file,
-      text,
       body,
       slug: frontmatterValue(text, 'slug'),
       translationKey: frontmatterValue(text, 'translationKey'),
       declaredLocale: frontmatterValue(text, 'locale'),
       draft: frontmatterValue(text, 'draft'),
       hero,
+      date,
     });
   }
 }
@@ -97,6 +115,8 @@ for (const locale of locales) {
   if (localized.length !== 8) fail(`Series 01 must contain exactly 8 articles for ${locale}; found ${localized.length}.`);
   const slugs = localized.map((entry) => entry.slug);
   if (new Set(slugs).size !== slugs.length) fail(`Duplicate Series 01 slug detected in ${locale}.`);
+  const parts = localized.map((entry) => Number(entry.translationKey.slice(-2)));
+  if (parts.sort((a, b) => a - b).join(',') !== '1,2,3,4,5,6,7,8') fail(`Series 01 parts for ${locale} must be exactly 1..8.`);
 }
 
 const allSeriesSlugs = series.map((entry) => entry.slug);
@@ -110,9 +130,9 @@ for (const key of expectedKeys) {
   if (new Set(triplet.map((entry) => entry.draft)).size !== 1) fail(`${key} has inconsistent draft state across locales.`);
   for (const entry of triplet) {
     if (entry.body.length < 1000) fail(`${path.relative(root, entry.file)} body is unexpectedly short (${entry.body.length} chars).`);
-    if (!entry.hero) fail(`${path.relative(root, entry.file)} is missing its editorial hero.`);
+    if (!entry.hero) fail(`${path.relative(root, entry.file)} is missing its editorial figure.`);
     const heroPath = path.join(root, 'public', entry.hero.replace(/^\//, '').replace(/^public\//, ''));
-    if (!fs.existsSync(heroPath)) fail(`${path.relative(root, entry.file)} references missing hero ${entry.hero}.`);
+    if (!fs.existsSync(heroPath)) fail(`${path.relative(root, entry.file)} references missing figure ${entry.hero}.`);
   }
 }
 
@@ -124,5 +144,10 @@ for (const locale of locales) {
   if (example && example.draft !== 'true') fail(`${locale}/example-draft.md must remain draft.`);
 }
 
+const blogPostSource = fs.readFileSync(path.join(root, 'src/components/BlogPost.astro'), 'utf8');
+if (blogPostSource.includes('post.data.authors')) fail('BlogPost must resolve authorship through the editorial registry, not legacy authors frontmatter.');
+if (blogPostSource.includes('xDefaultPath={canonicalPath}')) fail('Article translations must not declare each localized canonical as x-default.');
+
 console.log(`PASS: ${required.length} required files, 3 locales, ${entries.length} content entries.`);
-console.log('PASS: Series 01 contains exactly 24 complete articles (8 x 3), with complete translation triplets, unique slugs, consistent draft state, and local heroes.');
+console.log('PASS: Series 01 contains exactly 24 complete articles (8 x 3), with stable translation triplets, unique slugs, calendar dates and editorial figures.');
+console.log('PASS: public discovery policy, design contract and editorial-authority routing are present.');

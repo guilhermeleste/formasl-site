@@ -1,36 +1,24 @@
 # formasl-site
 
-Public site for FormaSL, developed by Forma Research Lab.
-
-## Scope
-
-- minimal landing page;
-- multilingual blog;
-- English, Brazilian Portuguese, and Simplified Chinese from the first release;
-- static output for Cloudflare Pages;
-- public brand assets required by the site.
-
-The site is an editorial and public-presence surface. It is **not** a semantic authority for the FormaSL language. Normative semantics, formalization, implementation, and language documentation remain owned by the FormaSL language repository.
+Public website for FormaSL and Forma Research Lab.
 
 ## Local development
 
-Requires Node.js 22.12.0 or newer.
-
-```sh
+```bash
 npm install
+npm run design:lint
 npm run validate
 npm run dev
+```
+
+## Production build
+
+```bash
+npm run design:lint
+npm run validate
 npm run build
 ```
 
-## Routes
+The site is an Astro static build. `DESIGN.md` is the operational design contract and is linted with a pinned `@google/design.md` CLI version. `BRAND.md` remains the upstream public brand baseline.
 
-- `/` — language gateway / `x-default`
-- `/en/`
-- `/pt-br/`
-- `/zh-hans/`
-- `/<locale>/blog/`
-- `/<locale>/rss.xml`
-- `/sitemap.xml`
-
-See `I18N.md`, `BRAND.md`, and `DEPLOYMENT.md`.
+Cloudflare-specific production behavior and manual gates are documented in `CLOUDFLARE.md` and `DEPLOYMENT.md`.
