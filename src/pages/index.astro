@@ -33,7 +33,7 @@ import { localeMeta, locales } from '../lib/i18n';
         <p class="eyebrow">Forma Semantic Language</p>
         <h1>Choose language</h1>
         <nav class="language-options" aria-label="Language">
-          {locales.map((locale) => <a href={`/${locale}/`} lang={localeMeta[locale].htmlLang}>{localeMeta[locale].label}</a>)}
+          {locales.map((locale) => <a href={`/?locale=${locale}`} lang={localeMeta[locale].htmlLang}>{localeMeta[locale].label}</a>)}
         </nav>
       </section>
     </main>

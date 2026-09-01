@@ -19,7 +19,7 @@ export const copy = {
     glossary: 'Glossary', glossaryIntro: 'Editorial definitions and distinctions used across the FormaSL publication, with their authority boundaries kept explicit.',
     by: 'By', published: 'Published', previous: 'Previous', next: 'Next', allArticles: 'All articles',
     notConfusedWith: 'Do not confuse with', authority: 'Authority',
-    privacyText: 'This minimal site does not intentionally collect personal data beyond infrastructure logs required to operate and secure the service. This notice will be expanded before any analytics, forms, subscriptions, or additional data processing are enabled.',
+    privacyText: 'Cloudflare Web Analytics is configured in privacy-first, cookie-free RUM Lite mode to collect aggregate page-performance and navigation metrics. It does not use cookies or localStorage for usage metrics. Cloudflare Pages may still process infrastructure and security logs required to operate and protect the service; this site does not provide forms, subscriptions, or user accounts.',
   },
   'pt-br': {
     metaTitle: 'FormaSL — Linguagem de especificação semântica computável',
@@ -32,7 +32,7 @@ export const copy = {
     glossary: 'Glossário', glossaryIntro: 'Definições editoriais e distinções usadas na publicação do FormaSL, mantendo explícitos os limites de autoridade de cada formulação.',
     by: 'Por', published: 'Publicado em', previous: 'Anterior', next: 'Próximo', allArticles: 'Todos os artigos',
     notConfusedWith: 'Não confundir com', authority: 'Autoridade',
-    privacyText: 'Este site mínimo não coleta intencionalmente dados pessoais além dos registros de infraestrutura necessários para operar e proteger o serviço. Este aviso será ampliado antes da ativação de analytics, formulários, inscrições ou qualquer processamento adicional de dados.',
+    privacyText: 'O Cloudflare Web Analytics está configurado no modo RUM Lite, com foco em privacidade e sem cookies, para coletar métricas agregadas de desempenho e navegação. Ele não usa cookies nem localStorage para métricas de uso. O Cloudflare Pages ainda pode processar registros de infraestrutura e segurança necessários para operar e proteger o serviço; este site não oferece formulários, inscrições ou contas de usuário.',
   },
   'zh-hans': {
     metaTitle: 'FormaSL — 可计算的语义规范语言',
@@ -45,7 +45,7 @@ export const copy = {
     glossary: '术语表', glossaryIntro: 'FormaSL 公共文章中使用的编辑性定义与关键区分，并明确保留各自的权威边界。',
     by: '作者', published: '发布于', previous: '上一篇', next: '下一篇', allArticles: '全部文章',
     notConfusedWith: '不要混同于', authority: '权威来源',
-    privacyText: '本网站当前不会主动收集个人数据，但运行和保护服务所必需的基础设施日志除外。在启用分析、表单、订阅或其他数据处理之前，本说明将进一步完善。',
+    privacyText: 'Cloudflare Web Analytics 已配置为注重隐私且不使用 Cookie 的 RUM Lite 模式，用于收集汇总的页面性能和导航指标。它不会使用 Cookie 或 localStorage 收集使用指标。Cloudflare Pages 仍可能处理运行和保护服务所必需的基础设施与安全日志；本网站不提供表单、订阅或用户账户。',
   },
 } satisfies Record<Locale, Record<string, string>>;
 

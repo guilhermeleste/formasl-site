@@ -21,15 +21,13 @@ Public static `GET` and `HEAD` requests for HTML, CSS, assets, `robots.txt`, sit
 
 ## robots.txt
 
-`public/robots.txt` in this repository is authoritative. Do not enable a Cloudflare feature that silently replaces it with a different managed policy.
+`public/robots.txt` defines the repository's base policy. Cloudflare AI Crawl Control is intentionally enabled and prepends a managed policy to the response; the managed policy is not a replacement for the repository file.
 
-The origin also sends `Content-Signal: search=yes, ai-input=yes, ai-train=no` through `public/_headers` so that HTML and Cloudflare Markdown conversions communicate the same preference.
+The current effective policy is materially compatible with the intended boundary: search and AI retrieval/input remain allowed for the declared retrieval agents, while AI training crawlers are disallowed. The origin also sends `Content-Signal: search=yes, ai-input=yes, ai-train=no` through `public/_headers` so that HTML and any future Cloudflare Markdown conversion communicate the same preference.
 
 ## Markdown for Agents
 
-Cloudflare Markdown for Agents may be enabled after the WhatsApp/Telegram access issue is understood. The site must remain fully functional when this feature is disabled.
-
-After enabling it, verify on at least one article:
+The current plan exposes the Markdown for Agents control as unavailable (`Upgrade plan`). The site therefore remains HTML-only and fully functional without a parallel Markdown implementation. If the feature becomes available, verify on at least one article:
 
 - `Accept: text/html` returns the normal page;
 - `Accept: text/markdown` returns Markdown;
@@ -41,13 +39,13 @@ Do not implement a second hand-maintained Markdown article tree.
 
 ## Language routing
 
-The root `/` remains a static language gateway until the in-app browser incident is resolved. A later edge change may use explicit saved preference, then `Accept-Language`, then English fallback. Such a redirect must not be cached as a universal language decision and must not depend on client-side JavaScript.
+The root `/` is redirected at the Cloudflare edge using an explicit `?locale=` gateway choice (persisted as `formasl_locale`), then the saved cookie, then `Accept-Language`, then English fallback. Redirects are limited to `/`, use `302`, and are not cacheable as a shared language decision; localized routes remain static and cacheable. The implementation does not depend on client-side JavaScript.
 
 Do not map `zh-TW`, `zh-HK`, `zh-MO` or `zh-Hant` silently to Simplified Chinese. Until a Traditional Chinese locale exists, use English as the fallback for those tags.
 
 ## Analytics
 
-Cloudflare Web Analytics is intentionally not represented as active in the repository until it is actually enabled. Update the localized privacy notice in the same release that analytics becomes active.
+Cloudflare Web Analytics RUM Lite is enabled for `formasl.org` with automatic installation and no cookie/localStorage-based usage measurement. The localized privacy notice describes aggregate page-performance/navigation metrics and the remaining infrastructure/security logs. Do not add GA4, GTM, session replay or heatmaps.
 
 Search Console and Bing Webmaster Tools verification should use a method that does not require DNS changes when a file/meta verification option is sufficient.
 
