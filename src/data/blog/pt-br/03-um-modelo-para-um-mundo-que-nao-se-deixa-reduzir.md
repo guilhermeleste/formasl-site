@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "Série 01"
-draft: true
+draft: false
 hero: /blog/series-01/03-um-modelo-para-um-mundo-que-nao-se-deixa-reduzir.svg
 heroAlt: "Uma relação identificável conecta participantes por papéis distintos, cercada por contexto, tempo, Claims e relações de ordem superior."
 ---

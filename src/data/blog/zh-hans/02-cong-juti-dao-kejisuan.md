@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "系列 01"
-draft: true
+draft: false
 hero: /blog/series-01/02-do-concreto-ao-computavel.svg
 heroAlt: "一个具体结构穿过连续的抽象切面，同时保留其中一部分关系。"
 ---

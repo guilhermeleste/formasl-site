@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "Série 01"
-draft: true
+draft: false
 hero: /blog/series-01/07-computacao-semantica.svg
 heroAlt: "Um contrato semântico permanece estável enquanto diferentes mecanismos especializados o realizam sob obrigações de Continuidade Semântica."
 ---

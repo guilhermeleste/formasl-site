@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "Série 01"
-draft: true
+draft: false
 hero: /blog/series-01/05-o-significado-precisa-sobreviver-a-computacao.svg
 heroAlt: "Representações mudam através de várias transformações enquanto uma linha de continuidade preserva distinções e genealogia semanticamente relevantes."
 ---

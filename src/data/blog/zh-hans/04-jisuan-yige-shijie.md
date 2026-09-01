@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "系列 01"
-draft: true
+draft: false
 hero: /blog/series-01/04-computar-um-mundo.svg
 heroAlt: "一个语义结构化的世界经过不同计算操作，进入决策、执行、效果与观察阶段，而这些阶段并未被合并。"
 ---

@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "系列 01"
-draft: true
+draft: false
 hero: /blog/series-01/08-forma-arquitetura-tecnica.svg
 heroAlt: "语义层、实现层和运行层三个层次，在共同语义契约之下组织 Forma 的不同组件。"
 ---

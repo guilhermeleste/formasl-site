@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "Series 01"
-draft: true
+draft: false
 hero: /blog/series-01/07-computacao-semantica.svg
 heroAlt: "A semantic contract remains stable while different specialized mechanisms realize it under obligations of Semantic Continuity."
 ---

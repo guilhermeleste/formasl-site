@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "Série 01"
-draft: true
+draft: false
 hero: /blog/series-01/08-forma-arquitetura-tecnica.svg
 heroAlt: "Três planos — semântico, realização e operacional — organizam componentes Forma sob um contrato semântico comum."
 ---

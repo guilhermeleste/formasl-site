@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "Série 01"
-draft: true
+draft: false
 hero: /blog/series-01/06-formasl.svg
 heroAlt: "Um contrato FormaSL organiza tipos, relações por papéis, Claims, cenários e operações semanticamente distintas."
 ---

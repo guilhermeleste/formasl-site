@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "系列 01"
-draft: true
+draft: false
 hero: /blog/series-01/07-computacao-semantica.svg
 heroAlt: "一个语义契约保持稳定，不同专用机制在语义连续性的义务约束下对其进行实现。"
 ---

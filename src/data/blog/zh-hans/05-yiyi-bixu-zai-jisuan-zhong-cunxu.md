@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "系列 01"
-draft: true
+draft: false
 hero: /blog/series-01/05-o-significado-precisa-sobreviver-a-computacao.svg
 heroAlt: "表示经过多次转换而改变，一条连续线仍保留语义上重要的区别与谱系。"
 ---

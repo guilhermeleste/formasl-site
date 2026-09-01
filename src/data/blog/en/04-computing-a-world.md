@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "Series 01"
-draft: true
+draft: false
 hero: /blog/series-01/04-computar-um-mundo.svg
 heroAlt: "A semantically structured world passes through distinct operations into decision, execution, effect, and observation without collapsing those stages."
 ---

@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "Série 01"
-draft: true
+draft: false
 hero: /blog/series-01/02-do-concreto-ao-computavel.svg
 heroAlt: "Uma estrutura concreta atravessando sucessivos recortes de abstração enquanto algumas relações permanecem preservadas."
 ---

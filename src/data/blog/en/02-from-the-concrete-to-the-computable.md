@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "Series 01"
-draft: true
+draft: false
 hero: /blog/series-01/02-do-concreto-ao-computavel.svg
 heroAlt: "A concrete structure passing through successive cuts of abstraction while some relations remain preserved."
 ---

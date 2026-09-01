@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "Série 01"
-draft: true
+draft: false
 hero: /blog/series-01/04-computar-um-mundo.svg
 heroAlt: "Um mundo semanticamente estruturado atravessa operações distintas até decisão, execução, efeito e observação sem fundir essas etapas."
 ---

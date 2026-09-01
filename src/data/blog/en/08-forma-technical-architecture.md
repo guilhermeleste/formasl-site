@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "Series 01"
-draft: true
+draft: false
 hero: /blog/series-01/08-forma-arquitetura-tecnica.svg
 heroAlt: "Three layers—semantic, realization, and operational—organize Forma components under a common semantic contract."
 ---

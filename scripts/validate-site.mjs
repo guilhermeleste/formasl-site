@@ -99,6 +99,9 @@ for (const locale of locales) {
   if (new Set(slugs).size !== slugs.length) fail(`Duplicate Series 01 slug detected in ${locale}.`);
 }
 
+const allSeriesSlugs = series.map((entry) => entry.slug);
+if (new Set(allSeriesSlugs).size !== allSeriesSlugs.length) fail('Duplicate Series 01 slug detected across locales; Astro content slugs must be globally unique.');
+
 for (const key of expectedKeys) {
   const triplet = series.filter((entry) => entry.translationKey === key);
   if (triplet.length !== 3) fail(`${key} must have exactly three translations; found ${triplet.length}.`);

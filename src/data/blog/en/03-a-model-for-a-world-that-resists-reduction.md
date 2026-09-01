@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "Series 01"
-draft: true
+draft: false
 hero: /blog/series-01/03-um-modelo-para-um-mundo-que-nao-se-deixa-reduzir.svg
 heroAlt: "An identifiable relation connects participants through distinct roles, surrounded by context, time, Claims, and higher-order relations."
 ---

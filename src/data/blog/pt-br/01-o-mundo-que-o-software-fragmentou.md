@@ -8,8 +8,8 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "Série 01"
-draft: true
-hero: /blog/series-01/01-fragmentation.svg
+draft: false
+hero: /blog/series-01/01-o-mundo-que-o-software-fragmentou.svg
 heroAlt: "Uma realidade organizacional contínua atravessando recortes especializados de software."
 ---
 

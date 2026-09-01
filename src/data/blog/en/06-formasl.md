@@ -1,6 +1,6 @@
 ---
 locale: en
-slug: formasl
+slug: formasl-en
 translationKey: series-01-06
 title: "FormaSL"
 description: "FormaSL is the computable semantic specification language that declares worlds, relations, Claims, operations, and semantic obligations without confusing the contract with its physical realization."
@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "Series 01"
-draft: true
+draft: false
 hero: /blog/series-01/06-formasl.svg
 heroAlt: "A FormaSL contract organizes types, role-based relations, Claims, scenarios, and semantically distinct operations."
 ---

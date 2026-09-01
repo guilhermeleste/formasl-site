@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "系列 01"
-draft: true
+draft: false
 hero: /blog/series-01/03-um-modelo-para-um-mundo-que-nao-se-deixa-reduzir.svg
 heroAlt: "一个可识别的关系通过不同角色连接多个参与者，并由语境、时间、Claim 与高阶关系共同限定。"
 ---

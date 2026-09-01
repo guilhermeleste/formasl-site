@@ -1,6 +1,6 @@
 ---
 locale: zh-hans
-slug: formasl
+slug: formasl-zh-hans
 translationKey: series-01-06
 title: "FormaSL"
 description: "FormaSL 是一种可计算语义规范语言，用来声明世界、关系、Claim、操作与语义义务，同时保持语义契约与物理实现之间的区别。"
@@ -8,7 +8,7 @@ date: 2026-08-31
 authors:
   - Forma Research Lab
 category: "系列 01"
-draft: true
+draft: false
 hero: /blog/series-01/06-formasl.svg
 heroAlt: "一个 FormaSL 契约组织类型、基于角色的关系、Claim、场景以及语义上不同的计算操作。"
 ---
