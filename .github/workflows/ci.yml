@@ -18,6 +18,8 @@ jobs:
           node-version: '22.16.0'
       - name: Install dependencies
         run: npm install --no-audit --no-fund
+      - name: Validate design contract
+        run: npm run design:lint
       - name: Validate structure
         run: npm run validate
       - name: Build static site

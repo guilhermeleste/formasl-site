@@ -2,42 +2,69 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
-import { copy, localePath, locales, type Locale } from '../lib/i18n';
+import { getEditorialMeta, getSeries } from '../data/editorial';
 import { getPublishedPosts } from '../lib/blog';
+import { absoluteUrl, copy, localeMeta, localePath, locales, partLabel, type Locale } from '../lib/i18n';
+import { organizationNode } from '../lib/structured-data';
 
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const c = copy[locale];
 const posts = (await getPublishedPosts(locale)).slice(0, 3);
+const firstMeta = posts[0] ? getEditorialMeta(posts[0].data) : undefined;
+const series = getSeries(firstMeta?.seriesKey);
 const alternates = Object.fromEntries(locales.map((l) => [l, localePath(l)]));
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${absoluteUrl(localePath(locale))}#website`,
+    name: 'FormaSL',
+    url: absoluteUrl(localePath(locale)),
+    inLanguage: localeMeta[locale].htmlLang,
+    publisher: { '@id': absoluteUrl('/#forma-research-lab') },
+  },
+  organizationNode(),
+];
 ---
-<BaseLayout locale={locale} title={c.metaTitle} description={c.metaDescription} canonicalPath={localePath(locale)} alternates={alternates}>
+<BaseLayout locale={locale} title={c.metaTitle} description={c.metaDescription} canonicalPath={localePath(locale)} alternates={alternates} xDefaultPath="/" structuredData={structuredData}>
   <Header locale={locale} currentSection="home" />
   <main>
     <section class="hero shell">
-      <p class="eyebrow">{c.brandExpansion}</p>
       <h1>{c.headline}</h1>
-      <p class="lede">{c.body}</p>
-      <div class="hero-links">
-        <a class="button" href={localePath(locale, 'blog')}>{c.blog}</a>
+      <div class="hero-copy">
+        <p class="lede">{c.body}</p>
+        <p class="hero-support">{c.body2}</p>
       </div>
     </section>
-    <section class="latest shell" aria-labelledby="latest-title">
-      <div class="section-heading">
-        <h2 id="latest-title">{c.latest}</h2>
-        <span class="oxide-rule" aria-hidden="true"></span>
-      </div>
+    <section class="latest shell" aria-labelledby="articles-title">
+      <header class="editorial-intro">
+        <p class="section-kicker">{c.blog}</p>
+        <h2 id="articles-title">{series?.titles[locale] ?? c.blog}</h2>
+        {series && <p class="section-deck">{series.descriptions[locale]}</p>}
+      </header>
       {posts.length ? (
-        <div class="post-grid">
-          {posts.map((post) => (
-            <article class="post-card">
-              <p class="post-meta">{post.data.category || c.blog} · <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString(locale === 'zh-hans' ? 'zh-CN' : locale)}</time></p>
-              <h3><a href={localePath(locale, `blog/${post.data.slug}`)}>{post.data.title}</a></h3>
-              <p>{post.data.description}</p>
-            </article>
-          ))}
+        <div class="home-article-list">
+          {posts.map((post) => {
+            const meta = getEditorialMeta(post.data);
+            return (
+              <article class="home-article-row">
+                <div class="home-article-copy">
+                  {meta.part && <p class="post-meta">{partLabel(locale, meta.part)}</p>}
+                  <h3><a href={localePath(locale, `blog/${post.data.slug}`)}>{post.data.title}</a></h3>
+                  <p>{post.data.description}</p>
+                </div>
+                {post.data.hero && post.data.heroAlt && (
+                  <figure class="home-article-figure">
+                    <img src={post.data.hero} alt={post.data.heroAlt} width="1440" height="960" loading="lazy" decoding="async" />
+                  </figure>
+                )}
+              </article>
+            );
+          })}
         </div>
       ) : <p class="muted">{c.noPosts}</p>}
+      <p class="section-link"><a href={localePath(locale, 'blog')}>{c.allArticles} →</a></p>
     </section>
   </main>
   <Footer locale={locale} />

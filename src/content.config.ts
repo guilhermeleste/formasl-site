@@ -10,10 +10,14 @@ const blogSchema = z.object({
   description: z.string(),
   date: z.coerce.date(),
   updated: z.coerce.date().optional(),
-  authors: z.array(z.string()).default(['Forma Research Lab']),
+  authors: z.array(z.string()).optional(),
   category: z.string().optional(),
+  author: z.string().optional(),
+  seriesKey: z.string().optional(),
+  part: z.coerce.number().int().min(1).optional(),
   hero: z.string().optional(),
   heroAlt: z.string().optional(),
+  socialImage: z.string().optional(),
   draft: z.boolean().default(false),
 }).superRefine((data, ctx) => {
   if (Boolean(data.hero) !== Boolean(data.heroAlt)) {
