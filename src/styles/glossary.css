@@ -1,0 +1,53 @@
+.glossary-page {
+  max-width: 980px;
+  padding-block: clamp(60px, 8vw, 92px) 120px;
+}
+
+.glossary-list {
+  border-top: 1px solid var(--line);
+}
+
+.glossary-term {
+  padding-block: 34px;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 88px;
+}
+
+.glossary-term h2 {
+  margin-bottom: 16px;
+  font-size: clamp(1.7rem, 3vw, 2.15rem);
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+}
+
+html:lang(zh-Hans) .glossary-term h2 {
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.glossary-term > p {
+  max-width: 70ch;
+  line-height: 1.68;
+}
+
+.definition-short {
+  font-size: 1.08rem;
+  color: #3d3a36;
+}
+
+.definition-boundary {
+  margin-top: 22px;
+  padding-left: 18px;
+  border-left: 2px solid var(--oxide);
+}
+
+.authority-note {
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+@media (max-width: 760px) {
+  .glossary-page { padding-block: 52px 92px; }
+  .glossary-term { padding-block: 28px; }
+}

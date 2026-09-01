@@ -1,11 +1,20 @@
-<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
- <desc>A computable semantic specification contract expressing types, role-based relations, claims, scenarios and distinct operations.</desc>
- <defs><pattern id="a" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#171716" stroke-opacity=".035"/></pattern></defs>
- <rect width="1600" height="900" fill="#F3F0E8"/><rect width="1600" height="900" fill="url(#a)"/><rect x="112" y="92" width="56" height="6" fill="#A44332"/>
- <rect x="310" y="145" width="980" height="625" rx="0" fill="#F3F0E8" stroke="#171716" stroke-width="2.5"/><rect x="342" y="210" width="12" height="12" fill="#A44332"/><rect x="342" y="315" width="12" height="12" fill="#A44332"/><rect x="342" y="440" width="12" height="12" fill="#A44332"/><rect x="342" y="590" width="12" height="12" fill="#A44332"/><rect x="342" y="690" width="12" height="12" fill="#A44332"/>
- <rect x="400" y="195" width="170" height="58" rx="0" fill="none" stroke="#171716" stroke-width="2"/><rect x="610" y="195" width="140" height="58" rx="0" fill="none" stroke="#171716" stroke-width="2"/><rect x="800" y="195" width="180" height="58" rx="0" fill="none" stroke="#171716" stroke-width="2"/>
- <rect x="430" y="315" width="430" height="140" rx="0" fill="none" stroke="#A44332" stroke-width="3"/><line x1="535" x2="535" y1="315" y2="455" stroke="#A44332" stroke-opacity=".6" stroke-width="1.5"/><line x1="645" x2="645" y1="315" y2="455" stroke="#A44332" stroke-opacity=".6" stroke-width="1.5"/><line x1="750" x2="750" y1="315" y2="455" stroke="#A44332" stroke-opacity=".6" stroke-width="1.5"/>
- <rect x="930" y="300" width="260" height="95" rx="0" fill="none" stroke="#171716" stroke-width="2"/><circle cx="972" cy="347" r="9" fill="#A44332" stroke="#A44332"/><line x1="1000" x2="1150" y1="335" y2="335" stroke="#171716" stroke-opacity=".55" stroke-width="2"/><line x1="1000" x2="1110" y1="360" y2="360" stroke="#171716" stroke-opacity=".3" stroke-width="2"/><line x1="860" x2="930" y1="360" y2="347" stroke="#171716" stroke-opacity=".6" stroke-width="2"/>
- <rect x="430" y="540" width="360" height="135" rx="0" fill="none" stroke="#171716" stroke-opacity=".75" stroke-width="2"/><path d="m430 540 35-25h360l-35 25" fill="none" stroke="#171716" stroke-linecap="square" stroke-opacity=".5" stroke-width="1.5"/><circle cx="525" cy="610" r="12" fill="#F3F0E8" stroke="#A44332" stroke-width="3"/><circle cx="670" cy="610" r="12" fill="#F3F0E8" stroke="#171716" stroke-width="2"/><line x1="537" x2="658" y1="610" y2="610" stroke="#A44332" stroke-width="3"/>
- <rect x="930" y="485" width="260" height="45" rx="0" fill="none" stroke="#171716" stroke-opacity=".55" stroke-width="1.5"/><circle cx="965" cy="507" r="8" fill="#F3F0E8" stroke="#A44332" stroke-width="2"/><line x1="1000" x2="1155" y1="507" y2="507" stroke="#171716" stroke-opacity=".35" stroke-width="1.5"/><rect x="930" y="545" width="260" height="45" rx="0" fill="none" stroke="#171716" stroke-opacity=".55" stroke-width="1.5"/><polygon points="965 555 978 567 965 579 952 567" fill="none" stroke="#A44332" stroke-width="2"/><line x1="1000" x2="1155" y1="567" y2="567" stroke="#171716" stroke-opacity=".35" stroke-width="1.5"/><rect x="930" y="605" width="260" height="45" rx="0" fill="none" stroke="#171716" stroke-opacity=".55" stroke-width="1.5"/><line x1="952" x2="978" y1="627" y2="627" stroke="#A44332" stroke-width="3"/><line x1="1000" x2="1155" y1="627" y2="627" stroke="#171716" stroke-opacity=".35" stroke-width="1.5"/><rect x="930" y="665" width="260" height="45" rx="0" fill="none" stroke="#171716" stroke-opacity=".55" stroke-width="1.5"/><path d="m952 687h22m-6-6 6 6-6 6" fill="none" stroke="#A44332" stroke-linecap="square" stroke-width="2"/><line x1="1000" x2="1155" y1="687" y2="687" stroke="#171716" stroke-opacity=".35" stroke-width="1.5"/><rect x="310" y="145" width="980" height="8" fill="#A44332"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 960" width="1440" height="960">
+  <rect width="1440" height="960" fill="#F3F0E8"/>
+  <rect x="330" y="126" width="780" height="708" fill="none" stroke="#A44332" stroke-width="5"/>
+  <text x="380" y="214" font-family="ui-monospace, monospace" font-size="58" font-weight="600" fill="#171716">.fsl</text>
+  <g fill="none" stroke="#171716" stroke-width="3">
+    <circle cx="550" cy="390" r="58"/><circle cx="850" cy="390" r="58"/><circle cx="700" cy="600" r="66"/>
+    <path d="M600 420L660 552M800 420L740 552M608 390H792"/>
+    <rect x="474" y="674" width="184" height="80"/><rect x="782" y="674" width="184" height="80"/>
+  </g>
+  <text x="506" y="727" font-family="ui-monospace, monospace" font-size="28" fill="#171716">Claim</text>
+  <g fill="none" stroke="#171716" stroke-opacity=".38" stroke-width="3" stroke-dasharray="10 10">
+    <path d="M330 300H176V210"/><path d="M1110 310H1270V216"/><path d="M1110 540H1280V650"/><path d="M330 570H168V700"/>
+  </g>
+  <g fill="#F3F0E8" stroke="#171716" stroke-width="3">
+    <circle cx="176" cy="190" r="52"/><rect x="1210" y="154" width="120" height="90"/><circle cx="1280" cy="700" r="55"/><rect x="112" y="700" width="120" height="90"/>
+  </g>
+  <g stroke="#171716" stroke-opacity=".18" stroke-width="2">
+    <line x1="92" y1="870" x2="1348" y2="870"/>
+  </g>
 </svg>

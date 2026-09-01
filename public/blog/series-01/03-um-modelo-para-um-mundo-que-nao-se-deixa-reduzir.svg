@@ -1,11 +1,20 @@
-<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
- <desc>A world model with identifiable multi-party relations, roles, claims, context, time and relations about relations.</desc>
- <defs><pattern id="a" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#171716" stroke-opacity=".035"/></pattern></defs>
- <rect width="1600" height="900" fill="#F3F0E8"/><rect width="1600" height="900" fill="url(#a)"/><rect x="112" y="92" width="56" height="6" fill="#A44332"/>
- <rect x="190" y="150" width="1220" height="610" rx="0" fill="none" stroke="#171716" stroke-opacity=".48" stroke-width="2"/><rect x="1040" y="205" width="260" height="160" rx="0" fill="none" stroke="#817B72" stroke-opacity=".45" stroke-width="1.5"/><path d="m1040 205-34-26h260l34 26" fill="none" stroke="#817B72" stroke-linecap="square" stroke-opacity=".45" stroke-width="1.5"/>
- <rect x="625" y="345" width="350" height="190" rx="0" fill="#F3F0E8" stroke="#A44332" stroke-width="4"/><line x1="712" x2="712" y1="345" y2="535" stroke="#A44332" stroke-opacity=".6" stroke-width="1.5"/><line x1="800" x2="800" y1="345" y2="535" stroke="#A44332" stroke-opacity=".6" stroke-width="1.5"/><line x1="888" x2="888" y1="345" y2="535" stroke="#A44332" stroke-opacity=".6" stroke-width="1.5"/><line x1="625" x2="975" y1="440" y2="440" stroke="#A44332" stroke-opacity=".6" stroke-width="1.5"/>
- <circle cx="360" cy="300" r="28" fill="#F3F0E8" stroke="#171716" stroke-width="2.2"/><circle cx="340" cy="470" r="22" fill="#F3F0E8" stroke="#171716" stroke-width="2.2"/><circle cx="430" cy="650" r="28" fill="#F3F0E8" stroke="#171716" stroke-width="2.2"/><circle cx="1180" cy="320" r="22" fill="#F3F0E8" stroke="#171716" stroke-width="2.2"/><circle cx="1205" cy="500" r="28" fill="#F3F0E8" stroke="#171716" stroke-width="2.2"/><circle cx="1110" cy="650" r="22" fill="#F3F0E8" stroke="#171716" stroke-width="2.2"/>
- <line x1="360" x2="625" y1="300" y2="370" stroke="#171716" stroke-opacity=".8" stroke-width="2"/><line x1="340" x2="625" y1="470" y2="465" stroke="#171716" stroke-opacity=".8" stroke-width="2"/><line x1="430" x2="710" y1="650" y2="535" stroke="#171716" stroke-opacity=".8" stroke-width="2"/><line x1="1180" x2="975" y1="320" y2="380" stroke="#171716" stroke-opacity=".8" stroke-width="2"/><line x1="1205" x2="975" y1="500" y2="470" stroke="#171716" stroke-opacity=".8" stroke-width="2"/><line x1="1110" x2="895" y1="650" y2="535" stroke="#171716" stroke-opacity=".8" stroke-width="2"/>
- <rect x="680" y="210" width="240" height="76" rx="0" fill="#F3F0E8" stroke="#171716" stroke-width="2"/><circle cx="720" cy="248" r="9" fill="#A44332" stroke="#A44332"/><line x1="752" x2="880" y1="238" y2="238" stroke="#171716" stroke-opacity=".65" stroke-width="2"/><line x1="752" x2="842" y1="258" y2="258" stroke="#171716" stroke-opacity=".35" stroke-width="2"/><line x1="800" x2="800" y1="286" y2="345" stroke="#A44332" stroke-width="3"/><circle cx="910" cy="150" r="14" fill="#F3F0E8" stroke="#A44332" stroke-width="3"/><line x1="910" x2="900" y1="164" y2="210" stroke="#A44332" stroke-width="2"/><line x1="910" x2="1165" y1="150" y2="245" stroke="#171716" stroke-opacity=".5" stroke-width="1.5"/>
- <line x1="260" x2="1340" y1="795" y2="795" stroke="#171716" stroke-opacity=".8" stroke-width="2"/><line x1="340" x2="340" y1="782" y2="808" stroke="#171716" stroke-opacity=".6" stroke-width="1.5"/><line x1="520" x2="520" y1="782" y2="808" stroke="#171716" stroke-opacity=".6" stroke-width="1.5"/><line x1="700" x2="700" y1="782" y2="808" stroke="#171716" stroke-opacity=".6" stroke-width="1.5"/><line x1="880" x2="880" y1="782" y2="808" stroke="#171716" stroke-opacity=".6" stroke-width="1.5"/><line x1="1060" x2="1060" y1="782" y2="808" stroke="#171716" stroke-opacity=".6" stroke-width="1.5"/><line x1="1240" x2="1240" y1="782" y2="808" stroke="#171716" stroke-opacity=".6" stroke-width="1.5"/><path d="m520 795v-105l-90-40" fill="none" stroke="#A44332" stroke-linecap="square" stroke-opacity=".9" stroke-width="2"/><path d="m1060 795v-105l50-40" fill="none" stroke="#A44332" stroke-linecap="square" stroke-opacity=".9" stroke-width="2"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 960" width="1440" height="960">
+  <rect width="1440" height="960" fill="#F3F0E8"/>
+  <rect x="118" y="112" width="1204" height="700" fill="none" stroke="#171716" stroke-opacity=".16" stroke-width="2" stroke-dasharray="14 14"/>
+  <circle cx="720" cy="470" r="92" fill="#F3F0E8" stroke="#171716" stroke-width="4"/>
+  <g stroke="#171716" stroke-width="3" fill="none">
+    <path d="M650 414L362 254"/><path d="M790 414L1070 252"/><path d="M630 490L310 510"/><path d="M810 490L1130 512"/><path d="M666 548L455 708"/><path d="M774 548L990 708"/>
+  </g>
+  <g fill="#F3F0E8" stroke="#171716" stroke-width="3">
+    <rect x="302" y="198" width="120" height="92"/><circle cx="1070" cy="252" r="55"/><rect x="248" y="465" width="124" height="90"/><circle cx="1130" cy="512" r="56"/><rect x="396" y="665" width="118" height="88"/><circle cx="990" cy="708" r="55"/>
+  </g>
+  <g fill="#A44332">
+    <rect x="492" y="332" width="52" height="14"/><rect x="912" y="330" width="52" height="14"/><rect x="444" y="486" width="52" height="14"/><rect x="944" y="486" width="52" height="14"/><rect x="544" y="620" width="52" height="14"/><rect x="846" y="620" width="52" height="14"/>
+  </g>
+  <path d="M720 378V246L858 184" fill="none" stroke="#A44332" stroke-width="4"/>
+  <path d="M858 142H1038V230H858Z" fill="#F3F0E8" stroke="#A44332" stroke-width="3"/>
+  <path d="M642 398L548 260L430 166" fill="none" stroke="#171716" stroke-opacity=".5" stroke-width="2"/>
+  <circle cx="402" cy="148" r="34" fill="#F3F0E8" stroke="#171716" stroke-width="3"/>
+  <line x1="238" y1="838" x2="1200" y2="838" stroke="#171716" stroke-opacity=".28" stroke-width="2"/>
+  <g stroke="#171716" stroke-width="3"><line x1="360" y1="826" x2="360" y2="850"/><line x1="620" y1="826" x2="620" y2="850"/><line x1="880" y1="826" x2="880" y2="850"/><line x1="1140" y1="826" x2="1140" y2="850"/></g>
 </svg>
