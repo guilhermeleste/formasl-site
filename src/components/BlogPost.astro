@@ -15,7 +15,7 @@ const translations = await getTranslations(post.data.translationKey);
 const paths = Object.fromEntries(Object.entries(translations).map(([lang, slug]) => [lang, localePath(lang as Locale, `blog/${slug}`)]));
 const canonicalPath = localePath(locale, `blog/${post.data.slug}`);
 ---
-<BaseLayout locale={locale} title={`${post.data.title} — FormaSL`} description={post.data.description} canonicalPath={canonicalPath} alternates={paths} xDefaultPath={canonicalPath}>
+<BaseLayout locale={locale} title={`${post.data.title} — FormaSL`} description={post.data.description} canonicalPath={canonicalPath} alternates={paths} xDefaultPath={canonicalPath} ogType="article" socialImagePath={post.data.hero}>
   <Header locale={locale} currentSection="blog" />
   <main class="shell article-page">
     <article>
