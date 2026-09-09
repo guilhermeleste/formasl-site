@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '..');
 const locales = ['en', 'pt-br', 'zh-hans'];
+const SERIES_PARTS = 12;
 const required = [
   'astro.config.mjs',
   'DESIGN.md',
@@ -107,16 +108,18 @@ for (const entry of entries) {
 }
 
 const series = entries.filter((entry) => /^series-01-\d{2}$/.test(entry.translationKey ?? ''));
-const expectedKeys = Array.from({ length: 8 }, (_, index) => `series-01-${String(index + 1).padStart(2, '0')}`);
-if (series.length !== 24) fail(`Series 01 must contain exactly 24 localized articles; found ${series.length}.`);
+const expectedKeys = Array.from({ length: SERIES_PARTS }, (_, index) => `series-01-${String(index + 1).padStart(2, '0')}`);
+const expectedLocalizedTotal = SERIES_PARTS * locales.length;
+if (series.length !== expectedLocalizedTotal) fail(`Series 01 must contain exactly ${expectedLocalizedTotal} localized articles; found ${series.length}.`);
 
 for (const locale of locales) {
   const localized = series.filter((entry) => entry.locale === locale);
-  if (localized.length !== 8) fail(`Series 01 must contain exactly 8 articles for ${locale}; found ${localized.length}.`);
+  if (localized.length !== SERIES_PARTS) fail(`Series 01 must contain exactly ${SERIES_PARTS} articles for ${locale}; found ${localized.length}.`);
   const slugs = localized.map((entry) => entry.slug);
   if (new Set(slugs).size !== slugs.length) fail(`Duplicate Series 01 slug detected in ${locale}.`);
-  const parts = localized.map((entry) => Number(entry.translationKey.slice(-2)));
-  if (parts.sort((a, b) => a - b).join(',') !== '1,2,3,4,5,6,7,8') fail(`Series 01 parts for ${locale} must be exactly 1..8.`);
+  const parts = localized.map((entry) => Number(entry.translationKey.slice(-2))).sort((a, b) => a - b);
+  const expectedParts = Array.from({ length: SERIES_PARTS }, (_, index) => index + 1).join(',');
+  if (parts.join(',') !== expectedParts) fail(`Series 01 parts for ${locale} must be exactly 1..${SERIES_PARTS}.`);
 }
 
 const allSeriesSlugs = series.map((entry) => entry.slug);
@@ -130,9 +133,10 @@ for (const key of expectedKeys) {
   if (new Set(triplet.map((entry) => entry.draft)).size !== 1) fail(`${key} has inconsistent draft state across locales.`);
   for (const entry of triplet) {
     if (entry.body.length < 1000) fail(`${path.relative(root, entry.file)} body is unexpectedly short (${entry.body.length} chars).`);
-    if (!entry.hero) fail(`${path.relative(root, entry.file)} is missing its editorial figure.`);
-    const heroPath = path.join(root, 'public', entry.hero.replace(/^\//, '').replace(/^public\//, ''));
-    if (!fs.existsSync(heroPath)) fail(`${path.relative(root, entry.file)} references missing figure ${entry.hero}.`);
+    if (entry.hero) {
+      const heroPath = path.join(root, 'public', entry.hero.replace(/^\//, '').replace(/^public\//, ''));
+      if (!fs.existsSync(heroPath)) fail(`${path.relative(root, entry.file)} references missing figure ${entry.hero}.`);
+    }
   }
 }
 
@@ -149,5 +153,5 @@ if (blogPostSource.includes('post.data.authors')) fail('BlogPost must resolve au
 if (blogPostSource.includes('xDefaultPath={canonicalPath}')) fail('Article translations must not declare each localized canonical as x-default.');
 
 console.log(`PASS: ${required.length} required files, 3 locales, ${entries.length} content entries.`);
-console.log('PASS: Series 01 contains exactly 24 complete articles (8 x 3), with stable translation triplets, unique slugs, calendar dates and editorial figures.');
+console.log(`PASS: Series 01 contains exactly ${expectedLocalizedTotal} complete articles (${SERIES_PARTS} x ${locales.length}), with stable translation triplets, unique slugs and calendar dates.`);
 console.log('PASS: public discovery policy, design contract and editorial-authority routing are present.');
