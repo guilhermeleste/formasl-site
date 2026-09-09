@@ -1,44 +1,59 @@
-# Forma / FormaSL — Public Presence Brand MVB v0.1
+# Forma / FormaSL — Public Presence Brand v0.2
 
 Status: **operational baseline**  
 Purpose: public presence for `formasl.org`, GitHub, email, social profiles and lightweight institutional documents.
 
 ## 1. Brand architecture
 
-- **Forma Research Lab** is the originating organization.
-- **FormaSL** is the public technology/language brand.
-- `formasl.org` is the only website in the current public-presence scope.
-- `Forma` is a shared verbal/visual family root; it is not used as the public institutional name by itself in this baseline.
+- **Forma** is the company and the commercial/institutional root.
+- **FormaSL** is the open-source semantic language and the primary technical brand at `formasl.org`.
+- **Forma Platform** is the commercial realization of the Forma architecture.
+- **Forma Research Lab** remains an originating/research identity and may be used for research attribution, but it is no longer the primary public institutional name.
+- `formasl.org` remains the public web entrypoint in the current scope.
 
-## 2. Official names
+Canonical relationship:
 
-- `Forma Research Lab`
+> Forma is the company. FormaSL is the open-source language. Forma Platform is the commercial product.
+
+## 2. Positioning
+
+Forma develops Semantic Computing: an architecture in which meaning and rules become computable and remain separable from the technologies that realize them.
+
+Canonical thesis:
+
+> Meaning should not belong to the implementation. It should be infrastructure.
+
+Commercial boundary:
+
+> The organization owns its world. Forma provides the infrastructure to make it work.
+
+## 3. Official names
+
+- `Forma`
 - `FormaSL`
-- Expanded product name when needed: `Forma Semantic Language`
+- `Forma Semantic Language` when the expanded language name is useful
+- `Forma Platform`
+- `Forma Research Lab` for research/origin attribution
 
 Do not rename FormaSL to `Forma SL`, `FORMASL`, `Forma Sl` or `Forma-SL` in normal brand usage.
 
-## 3. Visual territory
+## 4. Visual territory
 
 **Modernismo Estrutural / Structural Modernism**.
 
 The system is compact, technical, precise and restrained. Structure precedes ornament. The identity must not depend on AI-futurist effects, gradients, glow, network-node decoration, cyberpunk motifs or decorative graph imagery.
 
-## 4. Wordmarks
+## 5. Wordmarks
 
-Canonical production assets are outlined SVGs and do not require font installation.
+The current production assets include FormaSL and Forma Research Lab wordmarks. Until a dedicated Forma corporate wordmark is introduced, `formasl.org` may retain the FormaSL wordmark in the header while the copy explicitly presents Forma as the company.
 
 Rules:
 
-1. Do not reconstruct the wordmarks by typing them in a font.
+1. Do not reconstruct existing wordmarks by typing them in a font.
 2. Do not alter proportions, spacing or relative scale.
-3. Do not add a symbol to the wordmarks.
+3. Do not add decorative AI/network symbols to the wordmarks.
 4. FormaSL must remain legible as one name; `SL` is a suffix, not a separate logo.
 5. Monochrome versions are always valid.
-
-## 5. Compact marks
-
-Compact marks are utilitarian small-scale assets, not replacements for the primary wordmarks. Use them only where the full name is impractical: avatars, favicons and very small square surfaces.
 
 ## 6. Color
 
@@ -55,49 +70,66 @@ The identity must remain fully functional without Oxide. Oxide is an accent, not
 
 ### Institutional / web
 
-**Instrument Sans** — 400, 500, 600, 700 as needed. License: SIL Open Font License 1.1. The font itself is not distributed in this repository.
+**Instrument Sans** — 400, 500, 600, 700 as needed.
 
 ### Technical / code
 
-**Commit Mono**. License: SIL Open Font License 1.1. The font itself is not distributed in this repository.
+**Commit Mono**.
 
 ### Wordmarks
 
-Wordmarks are custom outlined vector assets. The production logos are not live text and are not dependent on either operational typeface.
+Wordmarks are custom outlined vector assets and are not dependent on the operational typefaces.
 
 ## 8. Layout behavior
 
 - Prefer left alignment.
-- Use visible hierarchy through scale, weight, spacing and rules before adding color.
+- Use hierarchy through scale, weight, spacing and rules before adding color.
 - Use Oxide sparingly.
-- Corners remain square or nearly square; default UI radius is `2px`.
+- Corners remain square or nearly square.
 - Dense technical content is allowed; disorder is not.
-- Long-form reading may be spacious, but the identity itself stays compact.
+- Avoid generic SaaS card walls and AI visual clichés.
 
-## 9. Web
+## 9. Web narrative
 
-`formasl.org` should use Paper as the default light surface, Carbon for primary text and structural elements, and Oxide only for selected accents. The initial website scope is landing page + blog. The site must not imitate a mature SaaS marketing site before such a product surface exists.
+`formasl.org` is a compact entrypoint, not a complete product documentation site.
 
-## 10. Forma Research Lab use
+The home page must answer quickly:
 
-Forma Research Lab does not have a separate website in this baseline. Its wordmark is used for institutional attribution on `formasl.org` and related public identity.
+1. What problem Forma sees: meaning is fragmented across implementations.
+2. What Semantic Computing changes: meaning becomes an explicit computational layer.
+3. How FormaSL relates to graphs, ontologies and AI.
+4. What Forma, FormaSL and Forma Platform are.
+5. Where to continue: the narrative article series, glossary and GitHub.
+
+The home page should remain shorter than the editorial series. Technical depth belongs in articles, documentation and the repository.
+
+## 10. Editorial architecture
+
+The first public series is narrative and accessible: **Meaning as Infrastructure** / **O significado como infraestrutura** / **意义即基础设施**.
+
+It explains the thesis in short progressive essays for investors, decision-makers and technically curious readers.
+
+A later technical series may cover the Formal World Model, Claims, time, authority, metagraph structure, invariants, Semantic Continuity, reasoning, analysis, `.fsl`, `.fsp` and realization in depth.
 
 ## 11. Prohibited uses
 
-Do not use `Forma` alone as the institutional public name in this baseline; add brain/network/AI clichés; add gradients or glow to wordmarks; stretch provided SVGs; or create a second unrelated visual identity for Forma Research Lab.
+Do not:
 
-## 12. Reopen gate
+- collapse Forma, FormaSL and Forma Platform into the same thing;
+- present the language as the commercial product;
+- present Forma as a graph database, ontology tool, knowledge-graph platform or AI-agent framework;
+- use defensive academic qualification in top-level investor/product copy;
+- add brain/network/AI clichés, gradients or glow;
+- create lock-in messaging around the semantic contract.
 
-Reopen this baseline only for a material issue: legal/trademark conflict, real legibility failure, licensing failure, important application failure, material brand-architecture change or international/script constraint.
-
-## 13. International web baseline
+## 12. International web baseline
 
 Launch locales:
 
 - `en` — English
-- `pt-BR` via URL path `/pt-br/`
-- `zh-Hans` via URL path `/zh-hans/`
+- `pt-BR` via `/pt-br/`
+- `zh-Hans` via `/zh-hans/`
 
 Prepared future locale: `zh-Hant` for Traditional Chinese.
 
-Brand names `FormaSL` and `Forma Research Lab` remain untranslated. The site must not depend on Google Fonts or another third-party font CDN for basic rendering in mainland China.
+Brand names `Forma`, `FormaSL`, `Forma Platform` and `Forma Research Lab` remain untranslated. The site must not depend on third-party font CDNs for basic rendering in mainland China.
