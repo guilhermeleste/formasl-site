@@ -3,7 +3,7 @@ import '../styles/glossary.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
-import { conceptAuthorityNote, conceptAuthorityUrl, concepts } from '../data/concepts';
+import { conceptAuthorityUrl, concepts } from '../data/concepts';
 import { absoluteUrl, copy, glossaryPath, localeMeta, locales, type Locale } from '../lib/i18n';
 
 interface Props { locale: Locale; }
@@ -34,7 +34,7 @@ const structuredData = {
   <Header locale={locale} currentSection="glossary" />
   <main class="shell glossary-page">
     <header class="editorial-intro editorial-intro-page">
-      <p class="section-kicker">FormaSL</p>
+      <p class="section-kicker">Forma</p>
       <h1>{c.glossary}</h1>
       <p class="lede smaller">{c.glossaryIntro}</p>
     </header>
@@ -44,11 +44,10 @@ const structuredData = {
           <h2>{concept.names[locale]}</h2>
           <p class="definition-short">{concept.short[locale]}</p>
           <p>{concept.expanded[locale]}</p>
-          <p class="definition-boundary"><strong>{c.notConfusedWith}:</strong> {concept.notConfusedWith[locale]}</p>
-          <p class="authority-note"><strong>{c.authority}:</strong> {conceptAuthorityNote[locale]} <a href={conceptAuthorityUrl}>FormaSL GitHub</a>.</p>
         </article>
       ))}
     </div>
+    <p class="authority-note">{c.technicalAuthority} <a href={conceptAuthorityUrl}>FormaSL GitHub</a>.</p>
   </main>
   <Footer locale={locale} />
 </BaseLayout>

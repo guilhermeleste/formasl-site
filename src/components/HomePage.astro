@@ -1,16 +1,18 @@
 ---
+import '../styles/home.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import { getEditorialMeta, getSeries } from '../data/editorial';
-import { getPublishedPosts } from '../lib/blog';
+import { getSeriesPosts } from '../lib/blog';
 import { absoluteUrl, copy, localeMeta, localePath, locales, partLabel, type Locale } from '../lib/i18n';
 import { organizationNode } from '../lib/structured-data';
+import { site } from '../lib/site';
 
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const c = copy[locale];
-const posts = (await getPublishedPosts(locale)).slice(0, 3);
+const posts = (await getSeriesPosts(locale)).slice(0, 3);
 const firstMeta = posts[0] ? getEditorialMeta(posts[0].data) : undefined;
 const series = getSeries(firstMeta?.seriesKey);
 const alternates = Object.fromEntries(locales.map((l) => [l, localePath(l)]));
@@ -22,7 +24,7 @@ const structuredData = [
     name: 'FormaSL',
     url: absoluteUrl(localePath(locale)),
     inLanguage: localeMeta[locale].htmlLang,
-    publisher: { '@id': absoluteUrl('/#forma-research-lab') },
+    publisher: { '@id': absoluteUrl('/#forma') },
   },
   organizationNode(),
 ];
@@ -31,34 +33,96 @@ const structuredData = [
   <Header locale={locale} currentSection="home" />
   <main>
     <section class="hero shell">
+      <p class="section-kicker">{c.heroKicker}</p>
       <h1>{c.headline}</h1>
       <div class="hero-copy">
         <p class="lede">{c.body}</p>
         <p class="hero-support">{c.body2}</p>
       </div>
+      <div class="home-actions">
+        <a class="home-cta primary" href={localePath(locale, 'blog')}>{c.startSeries}</a>
+        <a class="home-cta" href={site.githubUrl}>{c.github}</a>
+      </div>
     </section>
+
+    <section class="home-section shell" id="problem">
+      <div class="home-section-copy">
+        <p class="section-kicker">{c.problemKicker}</p>
+        <h2>{c.problemTitle}</h2>
+        <p>{c.problemBody}</p>
+        <p class="home-statement">{c.problemThesis}</p>
+      </div>
+    </section>
+
+    <section class="home-section shell" id="semantic-computing">
+      <div class="home-section-copy">
+        <p class="section-kicker">{c.semanticKicker}</p>
+        <h2>{c.semanticTitle}</h2>
+        <p>{c.semanticBody}</p>
+        <p class="home-statement">{c.semanticThesis}</p>
+      </div>
+    </section>
+
+    <section class="home-section shell" id="graphs-ontologies">
+      <header class="home-section-copy home-section-intro">
+        <p class="section-kicker">{c.conceptsKicker}</p>
+        <h2>{c.conceptsTitle}</h2>
+      </header>
+      <div class="home-card-grid">
+        <article class="home-card">
+          <h3>{c.graphTitle}</h3>
+          <p>{c.graphBody}</p>
+        </article>
+        <article class="home-card">
+          <h3>{c.ontologyTitle}</h3>
+          <p>{c.ontologyBody}</p>
+        </article>
+        <article class="home-card" id="ai-agents">
+          <h3>{c.aiTitle}</h3>
+          <p>{c.aiBody}</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="home-section shell" id="forma">
+      <header class="home-section-copy home-section-intro">
+        <p class="section-kicker">{c.formaKicker}</p>
+        <h2>{c.formaTitle}</h2>
+        <p>{c.formaBody}</p>
+      </header>
+      <div class="home-card-grid">
+        <article class="home-card">
+          <h3>{c.formaCompanyTitle}</h3>
+          <p>{c.formaCompanyBody}</p>
+        </article>
+        <article class="home-card">
+          <h3>{c.formaslTitle}</h3>
+          <p>{c.formaslBody}</p>
+        </article>
+        <article class="home-card">
+          <h3>{c.platformTitle}</h3>
+          <p>{c.platformBody}</p>
+        </article>
+      </div>
+    </section>
+
     <section class="latest shell" aria-labelledby="articles-title">
       <header class="editorial-intro">
-        <p class="section-kicker">{c.blog}</p>
-        <h2 id="articles-title">{series?.titles[locale] ?? c.blog}</h2>
-        {series && <p class="section-deck">{series.descriptions[locale]}</p>}
+        <p class="section-kicker">{c.seriesKicker}</p>
+        <h2 id="articles-title">{series?.titles[locale] ?? c.seriesTitle}</h2>
+        <p class="section-deck">{series?.descriptions[locale] ?? c.seriesBody}</p>
       </header>
       {posts.length ? (
         <div class="home-article-list">
           {posts.map((post) => {
             const meta = getEditorialMeta(post.data);
             return (
-              <article class="home-article-row">
+              <article class="home-article-row narrative-row">
                 <div class="home-article-copy">
                   {meta.part && <p class="post-meta">{partLabel(locale, meta.part)}</p>}
                   <h3><a href={localePath(locale, `blog/${post.data.slug}`)}>{post.data.title}</a></h3>
                   <p>{post.data.description}</p>
                 </div>
-                {post.data.hero && post.data.heroAlt && (
-                  <figure class="home-article-figure">
-                    <img src={post.data.hero} alt={post.data.heroAlt} width="1440" height="960" loading="lazy" decoding="async" />
-                  </figure>
-                )}
               </article>
             );
           })}

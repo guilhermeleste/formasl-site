@@ -7,7 +7,8 @@ const c = copy[locale];
 ---
 <footer class="site-footer shell">
   <div class="footer-origin">
-    <img src="/brand/forma-research-lab.svg" alt="Forma Research Lab" width="230" height="52" loading="lazy" />
+    <strong>Forma</strong><br />
+    <small>{c.footerTagline}</small>
   </div>
   <nav aria-label="Footer">
     <a href={localePath(locale, 'blog')}>{c.blog}</a>
@@ -15,5 +16,5 @@ const c = copy[locale];
     <a href={`mailto:${site.contactEmail}`}>{c.contact}</a>
     <a href={localePath(locale, 'privacy')}>{c.privacy}</a>
   </nav>
-  <small>© {new Date().getFullYear()} Forma Research Lab</small>
+  <small>© {new Date().getFullYear()} Forma</small>
 </footer>

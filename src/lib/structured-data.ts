@@ -3,15 +3,16 @@ import { getAuthor, getEditorialMeta, getSeries } from '../data/editorial';
 import { editorialDateISO } from './dates';
 import { absoluteUrl, copy, localeMeta, localePath, type Locale } from './i18n';
 
-const orgId = absoluteUrl('/#forma-research-lab');
+const orgId = absoluteUrl('/#forma');
 const authorId = absoluteUrl('/#guilherme-leste');
 
 export function organizationNode() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'ResearchOrganization',
+    '@type': 'Organization',
     '@id': orgId,
-    name: 'Forma Research Lab',
+    name: 'Forma',
+    alternateName: 'Forma Research Lab',
     url: absoluteUrl('/'),
   };
 }
@@ -44,7 +45,7 @@ export function articleStructuredData(locale: Locale, post: CollectionEntry<'blo
     dateModified,
     image: absoluteUrl(socialImagePath),
     author: personNode(locale),
-    publisher: { '@type': 'ResearchOrganization', '@id': orgId, name: 'Forma Research Lab' },
+    publisher: { '@type': 'Organization', '@id': orgId, name: 'Forma' },
     ...(series ? {
       isPartOf: {
         '@type': 'CreativeWorkSeries',
@@ -92,7 +93,7 @@ export function seriesStructuredData(locale: Locale, posts: CollectionEntry<'blo
       inLanguage: localeMeta[locale].htmlLang,
       url: seriesUrl,
       author: personNode(locale),
-      publisher: { '@type': 'ResearchOrganization', '@id': orgId, name: 'Forma Research Lab' },
+      publisher: { '@type': 'Organization', '@id': orgId, name: 'Forma' },
       hasPart: parts,
     },
     {

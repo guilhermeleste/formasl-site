@@ -19,6 +19,8 @@ const paths = Object.fromEntries(locales.map((l) => [l,
   </a>
   <div class="header-actions">
     <nav class="main-nav" aria-label="Primary">
+      <a href={`${localePath(locale)}#semantic-computing`}>{c.semanticComputing}</a>
+      <a href={`${localePath(locale)}#ai-agents`}>{c.aiAgents}</a>
       <a href={localePath(locale, 'blog')}>{c.blog}</a>
       {site.githubUrl && <a href={site.githubUrl} rel="me">{c.github}</a>}
     </nav>
