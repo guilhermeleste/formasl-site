@@ -1,0 +1,51 @@
+{
+  "tool": "node vm, pure JS root redirect",
+  "cases": [
+    {
+      "navigator": "pt-BR",
+      "expected": "pt",
+      "result": "pass"
+    },
+    {
+      "navigator": "en-GB",
+      "expected": "en",
+      "result": "pass"
+    },
+    {
+      "navigator": "zh-CN",
+      "expected": "zh-CN",
+      "result": "pass"
+    },
+    {
+      "navigator": "zh-Hans-CN",
+      "expected": "zh-CN",
+      "result": "pass"
+    },
+    {
+      "navigator": "fr-FR",
+      "expected": "en",
+      "result": "pass"
+    },
+    {
+      "navigator": "en-US",
+      "stored": "pt",
+      "expected": "pt",
+      "result": "pass"
+    },
+    {
+      "navigator": "pt-BR",
+      "stored": "zh-CN",
+      "expected": "zh-CN",
+      "result": "pass"
+    },
+    {
+      "navigator": "en-US",
+      "stored": "pt",
+      "url_query": "?lang=en",
+      "expected": "en",
+      "result": "pass"
+    }
+  ],
+  "manual_locale": "page + fragment path preservation tested separately",
+  "caveat": "browser HTTP navigation not tested; blocked by environment"
+}

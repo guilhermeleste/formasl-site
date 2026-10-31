@@ -1,0 +1,368 @@
+{
+  "status": "PASS",
+  "cases": 36,
+  "limitations": "Browser uses set_content, not HTTP; scripts and CSS are inlined",
+  "failures": [],
+  "cases_detail": [
+    {
+      "locale": "pt",
+      "page": "index.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "pt",
+      "page": "fundamentos.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "pt",
+      "page": "formasl.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "pt",
+      "page": "arquitetura.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "pt",
+      "page": "ecossistema.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "pt",
+      "page": "documentacao.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "pt",
+      "page": "index.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "pt",
+      "page": "fundamentos.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "pt",
+      "page": "formasl.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "pt",
+      "page": "arquitetura.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "pt",
+      "page": "ecossistema.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "pt",
+      "page": "documentacao.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "en",
+      "page": "index.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "en",
+      "page": "fundamentos.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "en",
+      "page": "formasl.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "en",
+      "page": "arquitetura.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "en",
+      "page": "ecossistema.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "en",
+      "page": "documentacao.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "en",
+      "page": "index.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "en",
+      "page": "fundamentos.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "en",
+      "page": "formasl.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "en",
+      "page": "arquitetura.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "en",
+      "page": "ecossistema.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "en",
+      "page": "documentacao.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "zh-CN",
+      "page": "index.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "zh-CN",
+      "page": "fundamentos.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "zh-CN",
+      "page": "formasl.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "zh-CN",
+      "page": "arquitetura.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "zh-CN",
+      "page": "ecossistema.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "zh-CN",
+      "page": "documentacao.html",
+      "viewport": 1440,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "zh-CN",
+      "page": "index.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "zh-CN",
+      "page": "fundamentos.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "zh-CN",
+      "page": "formasl.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "zh-CN",
+      "page": "arquitetura.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "zh-CN",
+      "page": "ecossistema.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    },
+    {
+      "locale": "zh-CN",
+      "page": "documentacao.html",
+      "viewport": 390,
+      "overflow": false,
+      "h1_visible": true,
+      "body_background": "rgb(239, 232, 221)",
+      "js_errors": [],
+      "type": "inlined-assets-not-http"
+    }
+  ]
+}

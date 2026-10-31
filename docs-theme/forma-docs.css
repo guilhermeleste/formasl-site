@@ -1,0 +1,121 @@
+/* Forma mdBook theme overlay.
+ * Source of brand tokens: approved Forma site v0.6.
+ * Apply AFTER the mdBook native theme. Never replace the book runtime.
+ */
+:root {
+  --forma-paper: #efe8dd;
+  --forma-deep-paper: #e7ded1;
+  --forma-canvas: #f8f4ed;
+  --forma-ink: #192122;
+  --forma-night: #182123;
+  --forma-copper: #bc8865;
+  --forma-line: rgba(25,33,34,.16);
+  --forma-font: 'Inter Display', 'Inter', 'Helvetica Neue', Arial, 'Noto Sans CJK SC', system-ui, sans-serif;
+}
+html.light, html.rust {
+  --bg: var(--forma-canvas);
+  --fg: var(--forma-ink);
+  --sidebar-bg: var(--forma-paper);
+  --sidebar-fg: #465355;
+  --sidebar-active: #81563c;
+  --sidebar-non-existant: #7a7770;
+  --links: #81563c;
+  --inline-code-color: #7c4e35;
+  --quote-bg: #ede5d8;
+  --quote-border: var(--forma-copper);
+  --table-border-color: #c9c0b2;
+  --table-header-bg: #e9e0d3;
+  --table-alternate-bg: #f0e9df;
+  --searchbar-border-color: #bfb4a5;
+  --searchresults-header-fg: #3b494a;
+  --searchresults-border-color: #bfb4a5;
+  --theme-popup-bg: #efe8dd;
+  --theme-popup-border: #c9c0b2;
+  --scrollbar: #b7aca0;
+}
+html.navy, html.coal, html.ayu {
+  --bg: #182123;
+  --fg: #efe8dd;
+  --sidebar-bg: #121c1e;
+  --sidebar-fg: #d5cdc2;
+  --sidebar-active: #e2b995;
+  --links: #e2b995;
+  --inline-code-color: #e2b995;
+  --quote-bg: #233033;
+  --quote-border: #bc8865;
+  --table-border-color: #435255;
+  --table-header-bg: #253336;
+  --table-alternate-bg: #1c282b;
+  --searchbar-border-color: #6d7d7e;
+  --searchresults-header-fg: #e0d6ca;
+  --searchresults-border-color: #455658;
+  --theme-popup-bg: #1d2a2c;
+  --theme-popup-border: #516064;
+}
+html { scroll-padding-top: 95px; }
+body, #content, #sidebar, #menu-bar { font-family: var(--forma-font); }
+body { -webkit-font-smoothing: antialiased; }
+#sidebar { border-right: 1px solid var(--forma-line); }
+#sidebar .sidebar-scrollbox { padding-top: 14px; }
+#sidebar a { line-height: 1.55; }
+#sidebar .active, #sidebar .active > a { font-weight: 700; }
+#menu-bar { border-bottom: 1px solid var(--forma-line); }
+#menu-bar .menu-title { letter-spacing: -.025em; font-weight: 650; }
+.content { max-width: 900px; }
+.content main { line-height: 1.73; font-size: 1.05rem; }
+.content main h1, .content main h2, .content main h3, .content main h4 {
+  color: var(--fg);
+  font-family: var(--forma-font);
+  letter-spacing: -.035em;
+  line-height: 1.18;
+}
+.content main h1 { font-size: clamp(2.2rem, 4vw, 3.45rem); font-weight: 550; margin: .6em 0 .48em; }
+.content main h2 { font-size: clamp(1.6rem, 2.4vw, 2.05rem); border-bottom: 1px solid var(--forma-line); padding-bottom: .32em; margin-top: 1.8em; }
+.content main h3 { font-size: clamp(1.25rem, 1.6vw, 1.5rem); margin-top: 1.55em; }
+.content main p, .content main li { line-height: 1.73; }
+.content main a { text-underline-offset: .2em; }
+.content main a:hover { text-decoration-thickness: .12em; }
+.content main pre { border: 1px solid rgba(128,128,128,.25); border-radius: 3px; line-height: 1.55; overflow-x: auto; max-width: 100%; }
+.content main pre code { font-size: .88rem; white-space: pre; }
+.content main code:not(pre code) { font-size: .9em; }
+.content main blockquote { border-left: 3px solid var(--forma-copper); padding: .3em 1em; }
+.content main table { display: block; overflow-x: auto; width: 100%; }
+.content main th, .content main td { padding: .65em .85em; }
+.content main img, .content main svg { max-width: 100%; height: auto; }
+.content main a:focus-visible, #sidebar a:focus-visible, #menu-bar a:focus-visible,
+#menu-bar button:focus-visible { outline: 3px solid var(--forma-copper); outline-offset: 3px; }
+.forma-docs-breadcrumb { border-bottom: 1px solid var(--forma-line); padding: 0 0 1.15rem; margin: 0 0 1.65rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1rem; }
+.forma-docs-breadcrumb a { text-decoration: none; text-transform: uppercase; font-size: .72rem; letter-spacing: .115em; font-weight: 700; }
+.forma-docs-breadcrumb a:hover { text-decoration: underline; }
+.forma-docs-breadcrumb .forma-docs-state { font-size: .68rem; letter-spacing: .05em; color: var(--sidebar-fg); }
+.forma-docs-brand { font-weight: 800; letter-spacing: -.06em; font-size: 1.12rem; margin-right: .5rem; }
+html[lang^='zh'] .content main { font-family: 'Noto Sans CJK SC','PingFang SC','Microsoft YaHei',system-ui,sans-serif; letter-spacing: 0; }
+@media (max-width: 800px) {
+  .content main { font-size: 1rem; }
+  .content main h1 { font-size: clamp(2rem, 8vw, 2.75rem); }
+  .forma-docs-breadcrumb { align-items: flex-start; }
+}
+@media print {
+  .forma-docs-breadcrumb { display:none !important; }
+  .content main a { color: #111 !important; }
+}
+/* Enhancements for wide documentation screens, without changing mdBook's navigation. */
+#forma-docs-toc { display: none; }
+.forma-docs-toc-mobile { border: 1px solid var(--forma-line); margin: 1.25em 0 1.7em; padding: .65em .9em; border-radius: 2px; }
+.forma-docs-toc-mobile summary { cursor: pointer; font-size: .85rem; font-weight: 700; }
+.forma-docs-toc-mobile ul { padding: .5rem 0 .15rem 1.15rem; margin: .35rem 0; }
+.forma-docs-toc-mobile li { padding: .24rem 0; font-size: .88rem; }
+.forma-docs-toc-mobile a { color: var(--links); }
+.forma-docs-toc-nested { padding-left: .65rem !important; opacity: .85; }
+.forma-docs-languages { display: inline-flex; gap: .6rem; flex-wrap: wrap; }
+.forma-docs-languages a { font-size: .68rem !important; letter-spacing: .08em !important; }
+@media (min-width: 1600px) {
+  #forma-docs-toc { display: block; position: fixed; z-index: 2; right: 2.4vw; top: 116px; bottom: 28px; width: 205px; overflow: auto; border-left: 1px solid var(--forma-line); padding-left: 18px; }
+  #forma-docs-toc strong { display: block; font-size: .69rem; text-transform: uppercase; letter-spacing: .13em; margin-bottom: 1.2rem; }
+  #forma-docs-toc ul { list-style: none; padding: 0; margin: 0; }
+  #forma-docs-toc li { margin: .65rem 0; font-size: .78rem; line-height: 1.5; }
+  #forma-docs-toc a { color: var(--sidebar-fg); text-decoration: none; }
+  #forma-docs-toc a:hover { color: var(--links); text-decoration: underline; }
+  .forma-docs-toc-mobile { display: none; }
+  .content { max-width: 790px; margin-right: 250px; }
+}

@@ -1,0 +1,8 @@
+/dist/
+/.cache/
+/.tmp/
+*.pyc
+__pycache__/
+.env
+.env.*
+!.env.example
