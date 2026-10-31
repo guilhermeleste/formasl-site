@@ -1,0 +1,32 @@
+{
+  "cutover_timestamp_utc": "2026-10-31T20:34-20:44",
+  "production_deployment": {
+    "id": "5d35cdac-d02a-4d0e-ae9c-c95a5b374c61",
+    "url": "https://5d35cdac.formasl-site.pages.dev",
+    "project": "formasl-site (fe6b95b7-2107-43a4-8b7d-44f741285abb)",
+    "branch": "main (production)",
+    "commit_message": "forma-cloudflare-v1 production: institutional v0.6 + mdBook @4374879fa",
+    "manifest": {"origin": "https://formasl.org", "docs_revision": "4374879fa581f0e51974264dbb6cfa1d27f9a60d", "docs_integrated": true, "translations_reviewed": false, "status_label": "preview_candidate (owner waived translations gate for this deployment)", "pages_localized": 69, "manual_html_pages": 274}
+  },
+  "edge_changes": [
+    {"change": "ruleset 7479d0adeebf48df88d6a5db46163646 v1->v2: legacy 9 root-locale 302 rules REMOVED (backup: legacy-redirect-rules.json)", "reason": "rules targeted legacy paths and a catch-all 302 / -> /en/ that bypassed the new root page"},
+    {"change": "v3: added 301 /pt-br/* -> /pt/ and /zh-hans/* -> /zh-CN/", "reason": "Pages edge cache held stale legacy pages (age ~3.6d, s-maxage=604800) immune to zone purge; redirect rules execute before cache lookup and map legacy URLs to new locales for SEO"},
+    {"change": "v4: added 301 www.formasl.org -> https://formasl.org + http.request.uri.path, preserve_query_string=true", "reason": "G-WWW canonicalization"},
+    {"change": "DNS: created www.formasl.org CNAME formasl-site.pages.dev (proxied), id ab203198d49831e373f4374f55030db9"},
+    {"change": "cache purge: prefix purge (ineffective on Pages custom-domain cache) then purge_everything at ~20:40Z"}
+  ],
+  "untouched": ["all Purelymail email records (MX, SPF, DKIM x3, DMARC, autoconfig, SRV)", "google-site-verification and Bing verification records", "zone settings (ssl full, always_use_https, cache_level aggressive, edge_cache_ttl 7200)", "Cloudflare-managed robots.txt AI-crawl-control block", ".webmcp/bridge.js edge injection (pre-existing zone feature, applies to old and new site alike)", "legacy deployment bbc38596 (kept for rollback)"],
+  "gates_evidence": {
+    "G-DOMAIN": "https://formasl.org 200, HTTP/2, TLS notBefore 2026-10-29 notAfter 2027-01-28 (Universal SSL formasl.org + *.formasl.org)",
+    "G-WWW": "https://www.formasl.org/ 301 -> https://formasl.org/ ; /pt/formasl.html?x=1&y=2 -> 301 -> https://formasl.org/pt/formasl.html?x=1&y=2 (path+query preserved); TLS SAN covers www",
+    "G-SITE": "check_live PASS 14/14; /pt/ /en/ /zh-CN/ + assets 200; hashes of deployed assets match local dist (style.css, main.js, forma-docs.css, /pt/ byte-identical)",
+    "G-I18N": "browser: root auto-detect -> /pt/ (system pt-BR); manual select zh-CN persisted and beat detection on root; explicit /pt/ /en/ /zh-CN/ serve correct lang attrs pt-BR/en/zh-CN with no locale redirect",
+    "G-DOCS": "/docs/ mdBook real (274 HTML pages) from FormaSL 4374879fa; search: 30 results for 'carrier' (index 17.5MB HTTP 200); theme Coal applied+persisted; highlight.js active on annotated blocks (rust/bash hljs+spans); forma-docs.css + forma-docs-toc.js 200 and referenced; brand breadcrumb on chapters; visual render verified (coal theme, styled callouts, no unstyled HTML)",
+    "G-CONTENT": "dist built solely from package public-src (sha256 SOURCE-HASHES verified, 79 files) + mdBook staged copy; docs worktree status --porcelain = 0 entries (no normative file altered); 21 GitHub md links intentionally kept (targets not in compiled book)",
+    "G-SEO": "canonical https://formasl.org/en/formasl.html; hreflang pt-BR/en/zh-CN + x-default present; sitemap.xml live with xhtml alternates; robots.txt Allow + Sitemap (plus Cloudflare-managed AI-crawl block, pre-existing); note: root selector page carries noindex by package design; .html URLs 308 to extension-less Pages canonicals",
+    "G-SECURITY": "nosniff, X-Frame-Options DENY, Referrer-Policy, Permissions-Policy on responses; TLS valid; no secrets in repo/reports (wrangler OAuth token only in local wrangler config); deploy performed with owner-local OAuth identity",
+    "G-ACCESSIBILITY": "keyboard: first Tab = skip-link, focusables ordered; language select has visually-hidden label + aria; menu button toggles aria-expanded false->true and nav 'open'; no horizontal overflow at 780px on 5 pages; 42-case scripted browser QA PASS; contrast/visual via screenshot inspection (coal + light themes render cleanly); NOT a full WCAG audit",
+    "G-ROLLBACK": "procedure documented in ROLLBACK.md; prior production deployment bbc38596-5927-4835-9dd0-ec9802afba58 retained; legacy redirect ruleset v1 JSON backup retained; DNS inventory in INVENTARIO-PRE-DEPLOY.md",
+    "G-LEGACY": "legacy content no longer served: /pt-br/* and /zh-hans/* 301 to new locales; /en/blog/ etc. 404; root serves new selector page; legacy edge rules disabled; no Workers/Snippets/Functions exist; old deployment kept ONLY as rollback artifact"
+  }
+}
