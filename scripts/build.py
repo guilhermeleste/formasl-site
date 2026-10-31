@@ -12,6 +12,7 @@ import hashlib
 import html
 import json
 import os
+import posixpath
 import re
 import shutil
 import subprocess
@@ -19,7 +20,7 @@ import sys
 import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import urlsplit
 from xml.sax.saxutils import escape as xml_escape
 
 HERE = Path(__file__).resolve().parent.parent
@@ -28,6 +29,74 @@ LOCALES = ("pt", "en", "zh-CN")
 REPO_URL = "https://github.com/guilhermeleste/FormaSL"
 DOC_STYLES = HERE / "docs-theme" / "forma-docs.css"
 DOC_TOC = HERE / "docs-theme" / "forma-docs-toc.js"
+SITE_NAME = "Forma"
+OG_IMAGE_PATH = "/assets/mineral-claro-02.webp"
+OG_LOCALE = {"pt": "pt_BR", "en": "en_US", "zh-CN": "zh_CN"}
+CF_BEACON_TOKEN = "f42e4edae1ac4963a56e8271828268c1"
+CF_BEACON_SNIPPET = (
+    "<script type=\"module\" src=\"https://static.cloudflareinsights.com/beacon.min.js\" "
+    "data-cf-beacon='{\"token\": \"" + CF_BEACON_TOKEN + "\"}'></script>"
+)
+CSP_POLICY = (
+    "default-src 'self'; "
+    "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; "
+    "style-src 'self' 'unsafe-inline'; "
+    "img-src 'self' data:; "
+    "font-src 'self' data:; "
+    "connect-src 'self' https://cloudflareinsights.com https://*.cloudflareinsights.com; "
+    "object-src 'none'; base-uri 'self'; form-action 'none'; "
+    "frame-ancestors 'none'; upgrade-insecure-requests"
+)
+
+
+def canonical_suffix(rel_path: str) -> str:
+    """Cloudflare Pages serves the canonical form without .html; index.html -> directory."""
+    if rel_path.endswith("/index.html"):
+        return rel_path[: -len("index.html")]
+    if rel_path.endswith(".html"):
+        return rel_path[: -len(".html")]
+    return rel_path
+
+
+def canonical_page_url(origin: str | None, rel_path: str) -> str | None:
+    if not origin:
+        return None
+    return origin + "/" + canonical_suffix(rel_path)
+
+
+def _extract_tag(markup: str, pattern: str) -> str | None:
+    found = re.search(pattern, markup)
+    if not found:
+        return None
+    return html.unescape(found.group(1)).strip() or None
+
+
+def social_head_markup(origin: str, canonical_url: str, locale: str, markup: str,
+                       og_type: str = "website") -> str:
+    """Open Graph / Twitter / analytics beacon, derived only from existing page metadata."""
+    title = _extract_tag(markup, r"<title[^>]*>(.*?)</title>")
+    description = _extract_tag(markup, r'<meta\s+name="description"\s+content="([^"]*)"')
+    image = origin + OG_IMAGE_PATH
+    parts = [
+        '<meta property="og:site_name" content="' + html.escape(SITE_NAME, quote=True) + '">',
+        '<meta property="og:type" content="' + og_type + '">',
+        '<meta property="og:url" content="' + html.escape(canonical_url, quote=True) + '">',
+        '<meta property="og:image" content="' + html.escape(image, quote=True) + '">',
+        '<meta property="og:locale" content="' + OG_LOCALE[locale] + '">',
+    ]
+    if title:
+        parts.append('<meta property="og:title" content="' + html.escape(title, quote=True) + '">')
+        parts.append('<meta name="twitter:title" content="' + html.escape(title, quote=True) + '">')
+    if description:
+        parts.append('<meta property="og:description" content="' + html.escape(description, quote=True) + '">')
+        parts.append('<meta name="twitter:description" content="' + html.escape(description, quote=True) + '">')
+    for alternate in LOCALES:
+        if alternate != locale:
+            parts.append('<meta property="og:locale:alternate" content="' + OG_LOCALE[alternate] + '">')
+    parts.append('<meta name="twitter:card" content="summary_large_image">')
+    parts.append('<meta name="twitter:image" content="' + html.escape(image, quote=True) + '">')
+    parts.append(CF_BEACON_SNIPPET)
+    return "\n".join(parts)
 
 
 def file_hash(path: Path) -> str:
@@ -88,15 +157,30 @@ def update_site_html(out: Path, origin: str | None, ref: str | None) -> int:
             page_path = page.relative_to(out).as_posix()
             markup = page.read_text(encoding="utf-8")
             if origin:
-                canonical = f"{origin}/{page_path}"
-                hreflang_regex = re.compile(r'(<link\s+rel="alternate"\s+hreflang="[^"]+"\s+href=")([^"]+)(")')
-                markup = hreflang_regex.sub(
-                    lambda m: m.group(1) + html.escape(urljoin(canonical, m.group(2)), quote=True) + m.group(3),
-                    markup,
-                )
+                canonical = canonical_page_url(origin, page_path)
+                assert canonical is not None
+                page_dir = posixpath.dirname(page_path)
+                hreflang_regex = re.compile(
+                    r'(<link\s+rel="alternate"\s+hreflang="([^"]+)"\s+href=")([^"]+)(")')
+
+                def absolutize(match: re.Match[str]) -> str:
+                    lang = match.group(2)
+                    href = match.group(3)
+                    if href.startswith("http:") or href.startswith("https:"):
+                        return match.group(0)
+                    if lang == "x-default":
+                        absolute = origin + "/"
+                    else:
+                        target_rel = posixpath.normpath(posixpath.join(page_dir, href))
+                        absolute = origin + "/" + canonical_suffix(target_rel)
+                    return match.group(1) + html.escape(absolute, quote=True) + match.group(4)
+
+                markup = hreflang_regex.sub(absolutize, markup)
                 if 'rel="canonical"' not in markup:
                     markup = markup.replace("</head>",
                         '<link rel="canonical" href="' + html.escape(canonical, quote=True) + '">\n</head>', 1)
+                head_injection = social_head_markup(origin, canonical, locale, markup)
+                markup = markup.replace("</head>", head_injection + "\n</head>", 1)
             if ref:
                 markup = markup.replace(REPO_URL + "/blob/master/", REPO_URL + "/blob/" + ref + "/")
                 markup = markup.replace(REPO_URL + "/tree/master/", REPO_URL + "/tree/" + ref + "/")
@@ -193,10 +277,14 @@ def brand_mdbook(doc_out: Path, origin: str | None) -> dict:
             markup = markup[:main.end()] + '\n' + docs_crumb_markup(locale) + markup[main.end():]
             with_crumb += 1
         if origin:
-            current = f"{origin}/docs/{relative.as_posix()}"
+            current = canonical_page_url(origin, "docs/" + relative.as_posix())
+            assert current is not None
             if 'rel="canonical"' not in markup:
                 markup = markup.replace("</head>",
                     '<link rel="canonical" href="' + html.escape(current, quote=True) + '">\n</head>', 1)
+            head_injection = social_head_markup(origin, current, "en" if lang == "en" else "pt",
+                                                markup, og_type="article")
+            markup = markup.replace("</head>", head_injection + "\n</head>", 1)
         page.write_text(markup, encoding="utf-8")
         changed += 1
     return {"themed_pages": changed, "branded_chapter_breadcrumbs": with_crumb}
@@ -297,6 +385,7 @@ def add_cf_files(out: Path, origin: str | None) -> None:
         "/*\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: DENY\n"
         "  Referrer-Policy: strict-origin-when-cross-origin\n"
         "  Permissions-Policy: camera=(), microphone=(), geolocation=()\n"
+        "  Content-Security-Policy: " + CSP_POLICY + "\n"
         "/assets/*\n  Cache-Control: public, max-age=3600\n"
         "/docs/forma-docs.css\n  Cache-Control: public, max-age=3600\n",
         encoding="utf-8",
@@ -325,10 +414,10 @@ def add_sitemap(out: Path, origin: str) -> None:
             alternates = []
             for alt in LOCALES:
                 alt_path = f"{alt}/{p.relative_to(out / locale).as_posix()}"
-                alternate = f'{origin}/{alt_path}'
+                alternate = f'{origin}/{canonical_suffix(alt_path)}'
                 code = "pt-BR" if alt == "pt" else alt
                 alternates.append('<xhtml:link rel="alternate" hreflang="' + code + '" href="' + xml_escape(alternate) + '"/>')
-            entries.append("<url><loc>" + xml_escape(f"{origin}/{rel}") + "</loc>" + "".join(alternates) + "</url>")
+            entries.append("<url><loc>" + xml_escape(f"{origin}/{canonical_suffix(rel)}") + "</loc>" + "".join(alternates) + "</url>")
     xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
         'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + "\n".join(entries) + "\n</urlset>\n")
