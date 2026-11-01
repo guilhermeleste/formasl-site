@@ -16,6 +16,8 @@ function main() {
   const args = process.argv.slice(2);
   const dirIdx = args.indexOf('--directory');
   const outIdx = args.indexOf('--out');
+  const baseIdx = args.indexOf('--base-url');
+  const remoteBase = baseIdx >= 0 ? args[baseIdx + 1].replace(/\/$/, '') : null;
   const root = path.resolve(dirIdx >= 0 ? args[dirIdx + 1] : 'dist');
   const out = path.resolve(outIdx >= 0 ? args[outIdx + 1] : 'evidence/browser-qa.json');
 
@@ -34,7 +36,7 @@ function main() {
     });
   });
   server.listen(0, '127.0.0.1', async () => {
-    const base = `http://127.0.0.1:${server.address().port}`;
+    const base = remoteBase || `http://127.0.0.1:${server.address().port}`;
     const results = [];
     const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--disable-dev-shm-usage'] });
     try {
@@ -49,13 +51,31 @@ function main() {
             await page.waitForTimeout(120);
             const overflow = await page.evaluate('document.documentElement.scrollWidth > window.innerWidth + 2');
             const h1Visible = await page.locator('h1').first().isVisible();
+            const contact = page.locator('footer .footer-links a[href="mailto:hello@formasl.org"]');
+            const contactCount = await contact.count();
+            let contactStyle = false;
+            let contactKeyboard = false;
+            if (contactCount === 1) {
+              contactStyle = await contact.evaluate((el) => {
+                const own = getComputedStyle(el), sibling = getComputedStyle(el.previousElementSibling);
+                return el.textContent === 'hello@formasl.org' &&
+                  ['fontFamily', 'fontSize', 'color'].every((key) => own[key] === sibling[key]);
+              });
+              await contact.evaluate((el) => el.previousElementSibling.focus());
+              await page.keyboard.press('Tab');
+              contactKeyboard = await contact.evaluate((el) => el === document.activeElement &&
+                el.matches(':focus-visible') && parseFloat(getComputedStyle(el).outlineWidth) > 0);
+            }
             results.push({ lang, page: document, viewport: width, status: resp ? resp.status() : null,
-              overflow, h1_visible: h1Visible, errors: [...errs] });
+              overflow, h1_visible: h1Visible, contact_count: contactCount,
+              contact_style: contactStyle, contact_keyboard: contactKeyboard, errors: [...errs] });
             errs = [];
           }
           await page.goto(`${base}/index.html`, { waitUntil: 'domcontentloaded' });
-          await page.waitForURL(`**/${lang}/index.html`, { timeout: 10000 });
-          results.push({ locale_detection: lang, viewport: width, ok: page.url().includes(lang) });
+          const localePaths = [`/${lang}/index.html`, `/${lang}/`];
+          await page.waitForURL((url) => localePaths.includes(url.pathname), { timeout: 10000 });
+          results.push({ locale_detection: lang, viewport: width,
+            ok: localePaths.includes(new URL(page.url()).pathname) });
           await ctx.close();
         }
       }
@@ -64,7 +84,8 @@ function main() {
       server.close();
     }
     const failures = results.filter((r) =>
-      ('status' in r && (r.status !== 200 || r.overflow || !r.h1_visible || r.errors.length)) ||
+      ('status' in r && (r.status !== 200 || r.overflow || !r.h1_visible ||
+        r.contact_count !== 1 || !r.contact_style || !r.contact_keyboard || r.errors.length)) ||
       ('locale_detection' in r && !r.ok));
     const summary = { status: failures.length ? 'FAIL' : 'PASS', cases: results.length, failures };
     fs.mkdirSync(path.dirname(out), { recursive: true });
