@@ -37,8 +37,14 @@ server.listen(0, '127.0.0.1', async () => {
   const base = `http://127.0.0.1:${server.address().port}`;
   const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
-  const violations = []; const errors = [];
-  page.on('console', m => { if (m.type() === 'error') errors.push(m.text().slice(0, 140)); });
+  const violations = []; const errors = []; const expectedErrors = [];
+  page.on('console', m => {
+    if (m.type() !== 'error') return;
+    if (m.location().url === base + '/nao-existe' &&
+        m.text() === 'Failed to load resource: the server responded with a status of 404 (Not Found)') {
+      expectedErrors.push({ page: '/nao-existe', status: 404, message: m.text() });
+    } else errors.push(m.text().slice(0, 140));
+  });
   page.on('pageerror', e => errors.push('pageerror: ' + String(e).slice(0, 140)));
   await page.addInitScript(() => {
     window.__violations = [];
@@ -78,14 +84,15 @@ server.listen(0, '127.0.0.1', async () => {
     ['/docs/autoridades/40-semantic-metagraph-formalization-contract.html', async () => {}],
   ];
   for (const [url, act] of steps) {
-    await page.goto(base + url, { waitUntil: 'load' }).catch(e => errors.push('goto ' + url + ': ' + String(e).slice(0, 80)));
+    const response = await page.goto(base + url, { waitUntil: 'load' }).catch(e => errors.push('goto ' + url + ': ' + String(e).slice(0, 80)));
+    if (url === '/nao-existe' && response?.status() !== 404) errors.push('Expected HTTP 404 for /nao-existe');
     await act();
     const v = await grab();
     for (const item of v) violations.push({ page: url, ...item });
   }
   await browser.close();
   server.close();
-  const report = { csp_applied: CSP.slice(0, 60) + '...', violation_count: violations.length, violations, console_errors: errors };
+  const report = { csp_applied: CSP.slice(0, 60) + '...', violation_count: violations.length, violations, console_errors: errors, expected_console_errors: expectedErrors };
   console.log(JSON.stringify(report, null, 1));
   fs.writeFileSync(path.join(__dirname, '..', 'evidence', 'csp-violation-test.json'), JSON.stringify(report, null, 2) + '\n');
   process.exit(violations.length || errors.length ? 1 : 0);

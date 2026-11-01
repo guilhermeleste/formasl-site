@@ -32,11 +32,8 @@ DOC_TOC = HERE / "docs-theme" / "forma-docs-toc.js"
 SITE_NAME = "Forma"
 OG_IMAGE_PATH = "/assets/mineral-claro-02.webp"
 OG_LOCALE = {"pt": "pt_BR", "en": "en_US", "zh-CN": "zh_CN"}
-CF_BEACON_TOKEN = "f42e4edae1ac4963a56e8271828268c1"
-CF_BEACON_SNIPPET = (
-    "<script type=\"module\" src=\"https://static.cloudflareinsights.com/beacon.min.js\" "
-    "data-cf-beacon='{\"token\": \"" + CF_BEACON_TOKEN + "\"}'></script>"
-)
+# Cloudflare injects the single beacon with its same-origin collector.
+# A manual copy initializes first and bypasses that collector.
 CSP_POLICY = (
     "default-src 'self'; "
     "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; "
@@ -73,7 +70,7 @@ def _extract_tag(markup: str, pattern: str) -> str | None:
 
 def social_head_markup(origin: str, canonical_url: str, locale: str, markup: str,
                        og_type: str = "website") -> str:
-    """Open Graph / Twitter / analytics beacon, derived only from existing page metadata."""
+    """Open Graph / Twitter metadata, derived only from existing page metadata."""
     title = _extract_tag(markup, r"<title[^>]*>(.*?)</title>")
     description = _extract_tag(markup, r'<meta\s+name="description"\s+content="([^"]*)"')
     image = origin + OG_IMAGE_PATH
@@ -95,7 +92,6 @@ def social_head_markup(origin: str, canonical_url: str, locale: str, markup: str
             parts.append('<meta property="og:locale:alternate" content="' + OG_LOCALE[alternate] + '">')
     parts.append('<meta name="twitter:card" content="summary_large_image">')
     parts.append('<meta name="twitter:image" content="' + html.escape(image, quote=True) + '">')
-    parts.append(CF_BEACON_SNIPPET)
     return "\n".join(parts)
 
 

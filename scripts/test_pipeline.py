@@ -64,7 +64,12 @@ for i in range(33): (out/f'ch{i}.html').write_text(html)
             "english_lang": 'lang="en"' in sample,
             "production_sitemap": (artifact / "sitemap.xml").is_file(),
             "sources_unchanged": not (repo / "scripts/book-publication/proj-manifest.json").exists(),
-            "localized_canonical": 'rel="canonical" href="https://example.invalid/pt/index.html"' in (artifact / "pt/index.html").read_text(),
+            "localized_canonical": 'rel="canonical" href="https://example.invalid/pt/"' in (artifact / "pt/index.html").read_text(),
+            "analytics_owned_by_cloudflare": all(
+                "static.cloudflareinsights.com/beacon" not in page.read_text()
+                and "data-cf-beacon" not in page.read_text()
+                for page in artifact.rglob("*.html")
+            ),
         }
         print(json.dumps(checks, indent=2))
         return 0 if all(checks.values()) else 1
