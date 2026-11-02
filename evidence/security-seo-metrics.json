@@ -1,0 +1,34 @@
+{
+  "round": "security-seo-metrics hardening",
+  "timestamp_utc": "2026-10-31T21:40Z",
+  "zone_security": {
+    "HSTS": "enabled, max-age=15552000 (180d), includeSubdomains=false, preload=false, nosniff=true — verified live on formasl.org AND www.formasl.org (301 responses)",
+    "min_tls_version": "1.2 — verified: TLS1.2 handshake OK, TLS1.1 rejected (NONE), TLS1.3 OK",
+    "bot_fight_mode": "enabled (fight_mode=true); ai_bots_protection left disabled (robots.txt managed block already declares AI-training policy; edge enforcement kept off to avoid false positives — owner can enable later)",
+    "dnssec": "status pending — DS generated for registrar: formasl.org. 3600 IN DS 2371 13 2 261ACCF6B5A8D8E9250E14A8B94A6E3F5DA80650585D827FF3716B350ECA84EE (algorithm 13 ECDSAP256SHA256). OWNER ACTION: add this DS record at Spaceship; zone flips to 'active' after propagation"
+  },
+  "site_build_changes": {
+    "CSP": "Content-Security-Policy on all responses via _headers: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://cloudflareinsights.com https://*.cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests — verified ZERO violations (local enforced test tools/csp_check.cjs across 12 pages incl. search/theme/toc/menu; live browser interactions on preview and production; webmcp edge injection is same-origin and allowed)",
+    "SEO canonicals": "canonical/hreflang/sitemap/x-default now emit Pages-canonical extension-less URLs (matches 308 targets); x-default -> https://formasl.org/",
+    "OG/Twitter": "og:site_name/type/url/image/locale(+alternates)/title/description + twitter:card summary_large_image + twitter title/description/image injected on all institutional pages (derived from existing title/description) and docs chapters (type=article, title from chapter)",
+    "metrics": "Cloudflare Web Analytics beacon (existing site_token f42e4eda...) injected on all institutional + docs pages; verified live: beacon.min.js 200, module chunk 200, POST cloudflareinsights.com/cdn-cgi/rum fired from real origin; cookieless (no consent banner needed); account site_tag f8fcbab405574ced86fc57f7418c819f"
+  },
+  "deployments": {
+    "preview": "71fa29d8 (preview.formasl-site.pages.dev)",
+    "production": "55e38a6b (formasl-site, branch main)"
+  },
+  "verification": {
+    "build_validate": "PASS (validate.py --docs, errors [], 274 manual pages, 69 locale pages)",
+    "smoke_http": "PASS 10/10",
+    "qa_browser_42": "PASS",
+    "csp_violations": "0 (tools/csp_check.cjs evidence/csp-violation-test.json)",
+    "check_live_production": "PASS 14/14",
+    "live_headers": "CSP + HSTS + nosniff + XFO verified on /pt/",
+    "routes": "/ 200, /pt|/en|/zh-CN 200, /docs/ 200, /pt-br/ 301->/pt/"
+  },
+  "not_done": [
+    "Google Search Console sitemap submission requires owner's GSC session (verification TXT already in DNS)",
+    "DNSSEC DS must be added at Spaceship by owner (registrar not accessible from here)",
+    "dedicated 1200x630 OG image: current og:image is the approved hero texture (webp); some platforms may ignore webp — a PNG card is an optional follow-up"
+  ]
+}

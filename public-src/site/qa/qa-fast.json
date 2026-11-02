@@ -1,0 +1,170 @@
+[
+  {
+    "locale": "pt",
+    "page": "index.html",
+    "width": 1440,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "pt",
+    "page": "index.html",
+    "width": 390,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "pt",
+    "page": "fundamentos.html",
+    "width": 1440,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "pt",
+    "page": "formasl.html",
+    "width": 390,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "pt",
+    "page": "arquitetura.html",
+    "width": 1440,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "pt",
+    "page": "ecossistema.html",
+    "width": 390,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "pt",
+    "page": "documentacao.html",
+    "width": 1440,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "pt",
+    "page": "componente/formagraph.html",
+    "width": 390,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "en",
+    "page": "index.html",
+    "width": 1440,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "en",
+    "page": "index.html",
+    "width": 390,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "en",
+    "page": "fundamentos.html",
+    "width": 1440,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "en",
+    "page": "formasl.html",
+    "width": 390,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "en",
+    "page": "arquitetura.html",
+    "width": 1440,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "en",
+    "page": "ecossistema.html",
+    "width": 390,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "en",
+    "page": "documentacao.html",
+    "width": 1440,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "en",
+    "page": "componente/formagraph.html",
+    "width": 390,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "zh-CN",
+    "page": "index.html",
+    "width": 1440,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "zh-CN",
+    "page": "index.html",
+    "width": 390,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "zh-CN",
+    "page": "fundamentos.html",
+    "width": 1440,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "zh-CN",
+    "page": "formasl.html",
+    "width": 390,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "zh-CN",
+    "page": "arquitetura.html",
+    "width": 1440,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "zh-CN",
+    "page": "ecossistema.html",
+    "width": 390,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "zh-CN",
+    "page": "documentacao.html",
+    "width": 1440,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "zh-CN",
+    "page": "componente/formagraph.html",
+    "width": 390,
+    "overflow": false,
+    "errors": []
+  }
+]

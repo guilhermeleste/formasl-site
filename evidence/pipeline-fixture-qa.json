@@ -1,0 +1,9 @@
+{
+  "built_site": true,
+  "built_docs": true,
+  "branded_mdbook": true,
+  "english_lang": true,
+  "production_sitemap": true,
+  "sources_unchanged": true,
+  "localized_canonical": true
+}

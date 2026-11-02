@@ -1,0 +1,139 @@
+<!doctype html><html lang="en" data-site-root="../" data-page-path="index.html"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Forma develops a Semantic Computing architecture and its own language, FormaSL. Relations, claims and rules become explicit parts of a program, available for computation."><meta name="theme-color" content="#efe8dd">
+<title>Forma — Forma</title><link rel="alternate" hreflang="pt-BR" href="../pt/index.html"><link rel="alternate" hreflang="en" href="../en/index.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/index.html"><link rel="alternate" hreflang="x-default" href="../index.html">
+<link rel="stylesheet" href="../assets/style.css"></head><body>
+<a class="skip" href="#conteudo">Skip to content</a><div class="progress" aria-hidden="true"></div><header class="site-header"><div class="container header-inner">
+<a class="logo" href="index.html" aria-label="Forma">FORMA.</a>
+<button type="button" class="menu-button" id="menu-button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Menu"><a href="fundamentos.html" >Foundations</a><a href="formasl.html" >FormaSL</a><a href="arquitetura.html" >Architecture</a><a href="ecossistema.html" >Ecosystem</a><a href="documentacao.html" >Documentation</a>
+<div class="language-control"><label for="language-select" class="visually-hidden">Language / Idioma / 语言</label><select id="language-select" aria-label="Language / Idioma / 语言"><option value="pt" >Português</option><option value="en" selected>English</option><option value="zh-CN" >简体中文</option></select></div>
+</nav></div></header><main id="conteudo"><section class="section home-hero" id="inicio"><div class="container"><div class="kicker">FORMA / SEMANTIC COMPUTING</div>
+<h1 class="display hero-claim">A new way<br>to build<br>software.</h1><p class="hero-description">Forma develops a Semantic Computing architecture and its own language, FormaSL. Relations, claims and rules become explicit parts of a program, available for computation.</p>
+<div class="hero-ctas"><a href="fundamentos.html" class="btn-primary">Discover Forma</a><a href="formasl.html" class="text-link">Explore the language</a></div>
+<div class="hero-bottom"><div class="hero-index">An architecture for representing, developing and executing software.</div><a class="text-link arrowdown" href="#perspectivas">Explore</a></div>
+<div class="hero-side">FORMA / SEMANTIC COMPUTING</div></div></section><section class="section scene scene-dark-texture scene-dark" id="perspectivas"><div class="container"><div class="section-meta"><span>01 / SITUATED AGENTS</span><span>FORMA / SEMANTIC COMPUTING</span></div><div class="scene-grid" style="margin-top:80px"><div><div class="kicker copper-light" style="margin-bottom:30px">SITUATED AGENTS</div>
+<h2 class="display">One world.<br>Different<br><span class="copper-light">perspectives.</span></h2>
+<div class="scene-copy"><p>The carrier reports that a shipment has arrived. The recipient has not yet confirmed receipt. The records concern the same delivery, but not the same event.</p><a href="fundamentos.html#modelo" class="text-link">Explore the world model</a></div></div><div class="world-stage"><div class="stage-header tiny"><span>FORMA / 018</span><span>CONCEPTUAL DEMONSTRATION</span></div>
+<div class="world-claim"><div class="claim-number">01</div><div><p class="state-label">CARRIER / STATEMENT</p><h3>“The shipment arrived at the port.”</h3><p>An agent issued an identifiable statement.</p></div></div>
+<div class="world-claim"><div class="claim-number">02</div><div><p class="state-label">RECIPIENT / CONFIRMATION</p><h3>Receipt has not yet been confirmed.</h3><p>Missing confirmation does not prove the shipment failed to arrive.</p></div></div>
+<div class="world-endnote">Recording a statement does not automatically make it true.</div></div></div></div></section><section class="section scene scene-light" id="relacoes"><div class="container"><div class="section-meta"><span>02 / RELATIONS WITH IDENTITY</span><span>FORMA / SEMANTIC COMPUTING</span></div><div class="scene-grid" style="margin-top:80px"><div><div class="kicker copper" style="margin-bottom:30px">RELATIONS WITH IDENTITY</div>
+<h2 class="display">Four roles.<br>One relation.</h2>
+<div class="scene-copy"><p>An assignment brings together an agent, an artifact, a project and an environment within one occurrence. The FormaSL metagraph preserves the roles and identity of that relation.</p><a href="fundamentos.html#metagrafo" class="text-link">Understand the metagraph</a></div></div><div class="relation-board" data-role-board><div class="stage-header tiny"><span>OCCURRENCE / TYPED ROLES</span><span>Assignment / a1</span></div>
+<div class="relation-diagram"><svg viewBox="0 0 600 420" aria-hidden="true" preserveAspectRatio="none"><line data-role-line="assignee" x1="300" y1="210" x2="105" y2="105"></line><line data-role-line="artifact" x1="300" y1="210" x2="495" y2="105"></line><line data-role-line="project" x1="300" y1="210" x2="105" y2="315"></line><line data-role-line="environment" x1="300" y1="210" x2="495" y2="315"></line></svg><button class="role r1" data-role="assignee" aria-pressed="false" type="button"><span class="role-kind">assignee</span><strong>Alice</strong></button><button class="role r2" data-role="artifact" aria-pressed="false" type="button"><span class="role-kind">artifact</span><strong>Dataset</strong></button><button class="role r3" data-role="project" aria-pressed="true" type="button"><span class="role-kind">project</span><strong>Atlas</strong></button><button class="role r4" data-role="environment" aria-pressed="false" type="button"><span class="role-kind">environment</span><strong>Production</strong></button><div class="relation-core"><small>Occurrence</small><strong>Assignment</strong><small style="margin:12px 0 0">Identity a1</small></div></div>
+<div class="role-detail" role="status" aria-live="polite" data-role-detail>Select a role to inspect its meaning.</div></div></div></div></section><section class="section scene scene-dark" id="linguagem"><div class="container"><div class="section-meta"><span>03 / THE LANGUAGE</span><span>FORMA / SEMANTIC COMPUTING</span></div><div class="scene-grid" style="margin-top:80px"><div><div class="kicker copper-light" style="margin-bottom:30px">THE LANGUAGE</div>
+<h2 class="display">The domain<br>becomes part<br>of the program.</h2>
+<div class="scene-copy"><p>FormaSL declares relations and Claims, queries occurrences, derives consequences, and governs analysis and transformations through explicit contracts.</p><a href="formasl.html" class="text-link">Explore FormaSL</a></div></div><section class="code-panel" data-code-browser aria-label="FormaSL"><div class="code-panel-top"><span>FORMA / .FSL</span><span>Illustrative example · Does not run FormaSL</span></div>
+<div class="code-tabs" role="tablist"><button type="button" id="home-tab-roles" role="tab" aria-controls="home-sample-roles" data-code-tab="roles" aria-selected="true" tabindex="0">N-ary roles</button><button type="button" id="home-tab-query" role="tab" aria-controls="home-sample-query" data-code-tab="query" aria-selected="false" tabindex="-1">Query</button><button type="button" id="home-tab-inference" role="tab" aria-controls="home-sample-inference" data-code-tab="inference" aria-selected="false" tabindex="-1">Inference</button><button type="button" id="home-tab-claims" role="tab" aria-controls="home-sample-claims" data-code-tab="claims" aria-selected="false" tabindex="-1">Claim lifecycle</button><button type="button" id="home-tab-transform" role="tab" aria-controls="home-sample-transform" data-code-tab="transform" aria-selected="false" tabindex="-1">Transformation</button></div><div class="code-sample" role="tabpanel" id="home-sample-roles" aria-labelledby="home-tab-roles" data-code-sample="roles" >
+<div class="code-content"><div class="code-window"><div class="code-caption">examples/F02-nary-semantic-roles/canonical.fsl</div><pre class="code-pre"><code>module semantic_roles {
+    type Agent
+    type Artifact
+    type Project
+    type Environment
+
+    relation Assignment {
+        role assignee: Agent
+        role artifact: Artifact
+        role project: Project
+        role environment: Environment
+    }
+
+    assert claim a1 : Assignment(
+        assignee: $alice,
+        artifact: $dataset,
+        project: $atlas,
+        environment: $production
+    ) { by : $registry }
+}</code></pre></div>
+<div class="code-explanation"><div><span class="tiny copper-light">CONCEPTUAL DEMONSTRATION</span><h3>Four roles. One relation.</h3><p>Assignment brings four typed participants into one occurrence. A Claim records the attributable statement.</p></div>
+<div class="code-footnote">Illustrative example · Does not run FormaSL<div style="margin-top:15px"><a href="https://github.com/guilhermeleste/FormaSL/blob/master/examples/F02-nary-semantic-roles/canonical.fsl" target="_blank" rel="noopener noreferrer">View technical source ↗</a></div></div></div></div></div><div class="code-sample" role="tabpanel" id="home-sample-query" aria-labelledby="home-tab-query" data-code-sample="query" hidden>
+<div class="code-content"><div class="code-window"><div class="code-caption">examples/F04-query-semantics/basic.fsl</div><pre class="code-pre"><code>module query_basic {
+    type Artifact
+    relation DependsOn {
+        role dependent: Artifact
+        role prerequisite: Artifact
+    }
+
+    assert claim d1 : DependsOn(
+        dependent: $app,
+        prerequisite: $parser
+    ) { by : $manifest }
+
+    match DirectDependencies() {
+        pattern ?d: DependsOn(
+            dependent: ?dependent,
+            prerequisite: ?prerequisite
+        )
+    }
+}</code></pre></div>
+<div class="code-explanation"><div><span class="tiny copper-light">CONCEPTUAL DEMONSTRATION</span><h3>Query without modifying the source.</h3><p>match retrieves dependencies between artifacts without introducing another Claim.</p></div>
+<div class="code-footnote">Illustrative example · Does not run FormaSL<div style="margin-top:15px"><a href="https://github.com/guilhermeleste/FormaSL/blob/master/examples/F04-query-semantics/basic.fsl" target="_blank" rel="noopener noreferrer">View technical source ↗</a></div></div></div></div></div><div class="code-sample" role="tabpanel" id="home-sample-inference" aria-labelledby="home-tab-inference" data-code-sample="inference" hidden>
+<div class="code-content"><div class="code-window"><div class="code-caption">examples/F05-reasoning-completion/canonical.fsl</div><pre class="code-pre"><code>rule Base using DependsOn(?x: Artifact) {
+    when DependsOn(dependent: ?a, prerequisite: ?b)
+    derive positive ReachableDependency(
+        dependent: ?a, prerequisite: ?b
+    )
+}
+
+rule Step using DependsOn(?x: Artifact) {
+    when DependsOn(dependent: ?a, prerequisite: ?b)
+    when ReachableDependency(dependent: ?b, prerequisite: ?c)
+    derive positive ReachableDependency(
+        dependent: ?a, prerequisite: ?c
+    )
+}</code></pre></div>
+<div class="code-explanation"><div><span class="tiny copper-light">CONCEPTUAL DEMONSTRATION</span><h3>Derivation is not assertion.</h3><p>Rules describe derived consequences; inference does not create an attributable statement by itself.</p></div>
+<div class="code-footnote">Illustrative example · Does not run FormaSL<div style="margin-top:15px"><a href="https://github.com/guilhermeleste/FormaSL/blob/master/examples/F05-reasoning-completion/canonical.fsl" target="_blank" rel="noopener noreferrer">View technical source ↗</a></div></div></div></div></div><div class="code-sample" role="tabpanel" id="home-sample-claims" aria-labelledby="home-tab-claims" data-code-sample="claims" hidden>
+<div class="code-content"><div class="code-window"><div class="code-caption">examples/F07-claim-lifecycle-conflict-time/canonical.fsl</div><pre class="code-pre"><code>assert claim open_v1 : States(
+    subject: $release, position: $open
+) {
+    by : $registry_a
+    valid_at : t1
+    recorded_at : $t2
+}
+
+adopt claim open_v1 as accepted_open {
+    by : $reviewer
+    based_on : $review_basis
+    recorded_at : $t4
+}
+
+retract claim accepted_open {
+    by : $reviewer
+    based_on : $later_evidence
+    recorded_at : $t5
+}</code></pre></div>
+<div class="code-explanation"><div><span class="tiny copper-light">CONCEPTUAL DEMONSTRATION</span><h3>Revisions preserve history.</h3><p>Adoption and retraction retain references to earlier Claims and their temporal conditions.</p></div>
+<div class="code-footnote">Illustrative example · Does not run FormaSL<div style="margin-top:15px"><a href="https://github.com/guilhermeleste/FormaSL/blob/master/examples/F07-claim-lifecycle-conflict-time/canonical.fsl" target="_blank" rel="noopener noreferrer">View technical source ↗</a></div></div></div></div></div><div class="code-sample" role="tabpanel" id="home-sample-transform" aria-labelledby="home-tab-transform" data-code-sample="transform" hidden>
+<div class="code-content"><div class="code-window"><div class="code-caption">docs/book/src/autoridades/user/LANGUAGE-GUIDE.md</div><pre class="code-pre"><code>transform Normalize($d: Device) using Reading {
+    rule normalize {
+        match {
+            pattern ?r: Reading(
+                device: ?device, value: ?value
+            )
+        }
+        per match
+        construct Normalized as $normalized {
+            role device: ?device
+            role value: ?value
+        }
+    }
+}</code></pre></div>
+<div class="code-explanation"><div><span class="tiny copper-light">CONCEPTUAL DEMONSTRATION</span><h3>Construct new structures.</h3><p>transform specifies how a destination structure is built from source data.</p></div>
+<div class="code-footnote">Illustrative example · Does not run FormaSL<div style="margin-top:15px"><a href="https://github.com/guilhermeleste/FormaSL/blob/master/docs/book/src/autoridades/user/LANGUAGE-GUIDE.md" target="_blank" rel="noopener noreferrer">View technical source ↗</a></div></div></div></div></div></section></div></div></section><section class="section scene scene-alt" id="arquitetura"><div class="container"><div class="section-meta"><span>04 / FOUR RESPONSIBILITIES</span><span>FORMA / SEMANTIC COMPUTING</span></div><div class="scene-grid" style="margin-top:80px"><div><div class="kicker copper" style="margin-bottom:30px">FOUR RESPONSIBILITIES</div>
+<h2 class="display">The contract.<br>The realizations.</h2>
+<div class="scene-copy"><p>Meaning declared by the application remains separate from realization plans, execution and storage. Different mechanisms can meet the same requirements.</p><a href="arquitetura.html" class="text-link">Inspect the architecture</a></div></div><div class="arch-board" data-architecture><div class="stage-header tiny"><span>RESPONSIBILITIES AND BINDINGS</span><span>.fsl → .fsp</span></div>
+<div style="padding-top:22px"><div class="arch-step hero-step"><strong>Semantic contract</strong><span>.fsl</span></div><div class="arch-down" aria-hidden="true"></div>
+<div class="arch-options"><button type="button" data-arch-option="a" aria-pressed="true"><strong>Realization A</strong><span>Local providers<br>.fsp</span></button>
+<button type="button" data-arch-option="b" aria-pressed="false"><strong>Realization B</strong><span>Alternative providers<br>.fsp</span></button></div>
+<div class="arch-down" aria-hidden="true"></div><div class="arch-step"><strong>Execution</strong><span>runtime</span></div>
+<div class="arch-down" aria-hidden="true"></div><div class="arch-step"><strong>Physical mechanisms</strong><span>storage / providers</span></div>
+<div class="arch-readout" role="status" aria-live="polite" data-arch-message>Both realizations preserve the meaning of the original contract.</div>
+<div class="arch-legend">This shows responsibility dependencies, not a mandatory execution sequence.</div></div></div></div></div></section><section class="section scene scene-dark" id="ecossistema"><div class="container"><div class="section-meta"><span>05 / SPECIALIZED CAPABILITIES</span><span>FORMA / SEMANTIC COMPUTING</span></div><div class="scene-grid" style="margin-top:80px"><div><div class="kicker copper-light" style="margin-bottom:30px">SPECIALIZED CAPABILITIES</div>
+<h2 class="display">One ecosystem.<br>Many mechanisms.</h2>
+<div class="scene-copy"><p>FormaGraph, the spatial engine, Forma Intelligence, data systems, interfaces and durable execution address distinct needs on a shared semantic basis.</p><a href="ecossistema.html" class="text-link">Explore the ecosystem</a></div></div><div class="eco-atlas" data-ecosystem><div class="eco-nav"><button type="button" data-eco="formagraph" aria-pressed="true">FormaGraph Engine</button><button type="button" data-eco="spatial" aria-pressed="false">Motor espacial Forma</button><button type="button" data-eco="intelligence" aria-pressed="false">Forma Intelligence</button><button type="button" data-eco="formakv" aria-pressed="false">FormaKV</button><button type="button" data-eco="forma-ui" aria-pressed="false">Forma UI</button></div><div class="eco-desc"><div><div class="eco-category" data-eco-category>Analysis, intelligence and spatiality</div><h3 data-eco-title>FormaGraph Engine</h3><p data-eco-body>Graph algorithms and GNN engine. Computes paths, centrality and communities, with GraphSAGE, GCN and GAT reference families.</p></div>
+<div class="eco-small" data-eco-small>Implementation scope and performance vary by algorithm; it is not Forma Graph UI.</div></div></div></div></div></section><section class="section scene scene-light" id="continuar"><div class="container"><div class="section-meta"><span>06 / REUSABLE FOUNDATION</span><span>FORMA / SEMANTIC COMPUTING</span></div><div class="scene-grid" style="margin-top:80px"><div><div class="kicker copper" style="margin-bottom:30px">REUSABLE FOUNDATION</div>
+<h2 class="display">Reuse more<br>than code.</h2>
+<div class="scene-copy"><p>The aim is to preserve relations, contracts and results with recoverable conditions of interpretation, so other applications can build on them.</p><a href="documentacao.html" class="text-link">View documentation</a></div></div><div class="closing-signature"><div class="tiny">FORMA / SEMANTIC COMPUTING</div><strong>FORMA.</strong><p>An architecture for representing, developing and executing software.</p></div></div></div></section></main><footer class="footer"><div class="container"><div class="footer-row"><div><a class="footer-word" href="index.html" style="text-decoration:none">FORMA.</a>
+<p class="footer-sub">SEMANTIC COMPUTING.<br>A new way to build software.</p></div><nav class="footer-links" aria-label="Documentation"><a href="fundamentos.html">Foundations</a><a href="formasl.html">FormaSL</a><a href="arquitetura.html">Architecture</a><a href="ecossistema.html">Ecosystem</a><a href="documentacao.html">Documentation</a><a href="https://github.com/guilhermeleste/FormaSL" target="_blank" rel="noopener noreferrer">Repository ↗</a><a href="mailto:hello@formasl.org">hello@formasl.org</a></nav></div>
+<div class="footer-bottom"><span>FORMA / Editorial basis: Forma v0.11</span><span>PT · EN · 简体中文</span></div></div></footer><script id="locale-dataset" type="application/json">{"fund": {"title": "The world, before the software.", "subtitle": "Forma starts from a simple premise: different agents know and describe reality from their own positions. Its language represents these positions and supports computation without erasing them.", "sections": [["conceito", "Meaning belongs in the program.", "Semantic Computing", "An application declares relations, rules, claims and operations as semantic structures. Infrastructure realizes these declarations; it does not redefine their meaning for convenience.", "The same information may be stored, analyzed or displayed in different ways. Interpretable results depend on retaining the concepts and conditions that give them meaning."], ["modelo", "Situated agents. A shared world.", "World model", "A person, organization or computational agent observes and makes statements within a particular context, with particular information and responsibilities. The world model represents these perspectives without assuming any one of them exhausts reality.", "Two organizations may describe the same delivery while recording different events. The program can relate their information without losing the origin of each position."], ["claim", "What is a Claim?", "Attributable act of assertion", "A Claim represents an identifiable assertion with a speaker, content and relevant conditions of interpretation. One person may state that a shipment arrived while another has not confirmed receipt.", "Recording a Claim does not establish that the described event occurred. Observations, assessments and decisions are separate acts."], ["metagrafo", "Relations have participants and roles.", "Logical metagraph", "In FormaSL, a relation may bring together multiple participants within one occurrence. An assignment can involve a person, an artifact, a project and an environment, each in a defined role.", "The metagraph organizes these typed relations and allows references to them. Diagrams and physical structures are possible representations, not the source of an occurrence’s logical identity."], ["continuidade", "Results must remain interpretable.", "Semantic continuity", "A query, analysis or transformation may produce new information. Its result needs to retain, directly or through reconstructible references, the conditions needed for interpretation.", "That does not require copying all data at each step. It requires accounting for what was preserved, derived, transformed, restricted or explicitly discarded."]], "view": ["Carrier", "Recipient", "Observer"], "views": [["CARRIER / CLAIM", "“The shipment arrived at the port.”", "The carrier records a statement. We can identify its author and the event it refers to.", "A Claim is not proof that the event occurred."], ["RECIPIENT / INFORMATION", "Receipt not confirmed.", "In this scenario, no recipient confirmation has been recorded. Its absence is not a statement that the shipment failed to arrive.", "Unknown does not mean false."], ["OBSERVATION / EVIDENCE", "A position was measured.", "A location measurement may provide evidence for analyzing the route. The observation and the carrier’s statement remain distinct.", "A measurement requires a basis for interpretation."]], "roles": ["Select a role to inspect its meaning.", "Agent assigned: Alice.", "Artifact involved: Dataset.", "Project where the assignment takes place: Atlas.", "Environment to which the assignment applies: production."], "role_head": "OCCURRENCE / TYPED ROLES", "role_core": "Occurrence", "role_identity": "Identity"}, "arch": {"title": "One contract. Different mechanisms.", "subtitle": "Forma separates responsibility into distinct architectural planes. Meaning does not have to be rewritten whenever infrastructure, analytical engines or storage change.", "sections": [["contrato", "What the application represents", "01 / Semantic contract · .fsl", "FormaSL source declares concepts, relations, statements, rules and operations. It establishes the application’s interpretation."], ["realizacao", "How requirements are fulfilled", "02 / Realization · .fsp", "A realization plan binds requirements to providers and capabilities. Different bindings can satisfy the same semantic contract."], ["execucao", "What was computed, under which conditions", "03 / Runtime", "The execution engine evaluates operations on a defined basis, with budgets, completeness, provenance and typed results."], ["fisico", "Where information is maintained", "04 / Physical representation", "Storage, indexes, files, services and providers carry out specialized work. Their formats do not replace domain contracts."], ["efeitos", "Decisions and effects are separate events", "Actions and observations", "A decision may authorize an execution request. External effects require mechanisms and observation evidence. A request alone is not proof of an effect."]], "compare": ["Realization A", "Realization B", "Local providers", "Alternative providers", "Both realizations preserve the meaning of the original contract.", "Requirements bind to different mechanisms without changing the .fsl declaration."], "diagram_title": "RESPONSIBILITIES AND BINDINGS", "contract": "Semantic contract", "realization": "Realization", "execution": "Execution", "physical": "Physical mechanisms", "effects": "Effects and observations", "warning": "This shows responsibility dependencies, not a mandatory execution sequence."}, "menu": "Menu", "close": "Close", "home": {"hero": ["A new way<br>to build<br>software.", "Forma develops a Semantic Computing architecture and its own language, FormaSL. Relations, claims and rules become explicit parts of a program, available for computation.", "Discover Forma", "Explore the language", "An architecture for representing, developing and executing software."], "scenes": [["SITUATED AGENTS", "One world.<br>Different<br><em>perspectives.<\/em>", "The carrier reports that a shipment has arrived. The recipient has not yet confirmed receipt. The records concern the same delivery, but not the same event.", "Explore the world model", "fundamentos.html#modelo"], ["RELATIONS WITH IDENTITY", "Four roles.<br>One relation.", "An assignment brings together an agent, an artifact, a project and an environment within one occurrence. The FormaSL metagraph preserves the roles and identity of that relation.", "Understand the metagraph", "fundamentos.html#metagrafo"], ["THE LANGUAGE", "The domain<br>becomes part<br>of the program.", "FormaSL declares relations and Claims, queries occurrences, derives consequences, and governs analysis and transformations through explicit contracts.", "Explore FormaSL", "formasl.html"], ["FOUR RESPONSIBILITIES", "The contract.<br>The realizations.", "Meaning declared by the application remains separate from realization plans, execution and storage. Different mechanisms can meet the same requirements.", "Inspect the architecture", "arquitetura.html"], ["SPECIALIZED CAPABILITIES", "One ecosystem.<br>Many mechanisms.", "FormaGraph, the spatial engine, Forma Intelligence, data systems, interfaces and durable execution address distinct needs on a shared semantic basis.", "Explore the ecosystem", "ecossistema.html"], ["REUSABLE FOUNDATION", "Reuse more<br>than code.", "The aim is to preserve relations, contracts and results with recoverable conditions of interpretation, so other applications can build on them.", "View documentation", "documentacao.html"]], "world_labels": ["CARRIER / STATEMENT", "The shipment arrived at the port.", "An agent issued an identifiable statement.", "RECIPIENT / CONFIRMATION", "Receipt has not yet been confirmed.", "Missing confirmation does not prove the shipment failed to arrive."], "world_note": "Recording a statement does not automatically make it true."}, "eco": {"title": "Specialized capabilities on a shared foundation.", "subtitle": "The Forma ecosystem brings together dedicated engines and tools. Each has a defined responsibility and can be combined with others as an application requires.", "groups": ["Analysis, intelligence and spatiality", "Data and resources", "Execution and integration", "Network and distribution", "Interfaces, documents and spreadsheets", "Agents"], "deep": "Explore component", "mechanism": "What it does", "integration": "Its role in Forma", "limits": "Scope and limitations", "all": "All components", "not_equiv": "Mechanisms complement the semantic contract; they do not replace its authority."}}</script><script src="../assets/main.js" defer></script></body></html>

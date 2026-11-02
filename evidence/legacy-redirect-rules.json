@@ -1,0 +1,25 @@
+{
+  "captured_at": "2026-10-31T20:10:00Z",
+  "source": "GET /zones/c3dc18477f9d63efa103a3fb58760c8b/rulesets/phases/http_request_dynamic_redirect/entrypoint",
+  "ruleset": {
+    "id": "7479d0adeebf48df88d6a5db46163646",
+    "name": "FormaSL root locale redirect",
+    "description": "Redirect only / using explicit locale query, saved preference cookie, Accept-Language first range, and English fallback.",
+    "kind": "zone",
+    "phase": "http_request_dynamic_redirect",
+    "version": "1",
+    "last_updated": "2026-09-01T21:34:05.434887Z",
+    "rules": [
+      {"ref": "fsl_root_locale_query_pt", "description": "Explicit Portuguese gateway choice", "enabled": true, "status_code": 302, "target": "https://formasl.org/pt-br/", "expression": "(http.host eq \"formasl.org\" and http.request.uri.path eq \"/\" and http.request.uri.query eq \"locale=pt-br\")"},
+      {"ref": "fsl_root_locale_query_en", "description": "Explicit English gateway choice", "enabled": true, "status_code": 302, "target": "https://formasl.org/en/", "expression": "(http.host eq \"formasl.org\" and http.request.uri.path eq \"/\" and http.request.uri.query eq \"locale=en\")"},
+      {"ref": "fsl_root_locale_query_zh", "description": "Explicit Simplified Chinese gateway choice", "enabled": true, "status_code": 302, "target": "https://formasl.org/zh-hans/", "expression": "(http.host eq \"formasl.org\" and http.request.uri.path eq \"/\" and http.request.uri.query eq \"locale=zh-hans\")"},
+      {"ref": "fsl_root_locale_cookie_pt", "description": "Saved Portuguese locale preference", "enabled": true, "status_code": 302, "target": "https://formasl.org/pt-br/", "expression": "(http.host eq \"formasl.org\" and http.request.uri.path eq \"/\" and http.cookie contains \"formasl_locale=pt-br\")"},
+      {"ref": "fsl_root_locale_cookie_en", "description": "Saved English locale preference", "enabled": true, "status_code": 302, "target": "https://formasl.org/en/", "expression": "(http.host eq \"formasl.org\" and http.request.uri.path eq \"/\" and http.cookie contains \"formasl_locale=en\")"},
+      {"ref": "fsl_root_locale_cookie_zh", "description": "Saved Simplified Chinese locale preference", "enabled": true, "status_code": 302, "target": "https://formasl.org/zh-hans/", "expression": "(http.host eq \"formasl.org\" and http.request.uri.path eq \"/\" and http.cookie contains \"formasl_locale=zh-hans\")"},
+      {"ref": "fsl_root_locale_accept_pt", "description": "Portuguese first language range", "enabled": true, "status_code": 302, "target": "https://formasl.org/pt-br/", "expression": "(http.host eq \"formasl.org\" and http.request.uri.path eq \"/\" and (lower(http.request.headers[\"accept-language\"][0]) eq \"pt\" or starts_with(lower(http.request.headers[\"accept-language\"][0]), \"pt-\")))"},
+      {"ref": "fsl_root_locale_accept_zh", "description": "Simplified Chinese first language range", "enabled": true, "status_code": 302, "target": "https://formasl.org/zh-hans/", "expression": "(http.host eq \"formasl.org\" and http.request.uri.path eq \"/\" and (starts_with(lower(http.request.headers[\"accept-language\"][0]), \"zh-cn\") or starts_with(lower(http.request.headers[\"accept-language\"][0]), \"zh-sg\") or starts_with(lower(http.request.headers[\"accept-language\"][0]), \"zh-hans\")))"},
+      {"ref": "fsl_root_locale_default_en", "description": "English fallback for unsupported or absent language", "enabled": true, "status_code": 302, "target": "https://formasl.org/en/", "expression": "(http.host eq \"formasl.org\" and http.request.uri.path eq \"/\")"}
+    ]
+  },
+  "restore_procedure": "Recreate via PUT /zones/c3dc18477f9d63efa103a3fb58760c8b/rulesets/phases/http_request_dynamic_redirect/entrypoint with the rules JSON above (or re-enable in dashboard Rules > Redirect Rules). This ruleset must remain DISABLED/absent while the new site serves / — it targets legacy paths /pt-br/|/en/|/zh-hans/ and a catch-all 302 to /en/ that would bypass the new root page."
+}

@@ -1,0 +1,104 @@
+name: Forma Cloudflare Pages (controlled deployment)
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: Deployment channel
+        required: true
+        type: choice
+        options: [preview, production]
+        default: preview
+      docs_ref:
+        description: Exact 40-character commit SHA of guilhermeleste/FormaSL
+        required: true
+        type: string
+      site_origin:
+        description: Public HTTPS origin (production only; e.g. https://your.domain)
+        required: false
+        type: string
+      translations_reviewed:
+        description: Native-speaker review of English and Simplified Chinese has been approved
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: forma-pages-${{ inputs.channel }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.channel }}
+    steps:
+      - name: Checkout this website package
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Checkout exact documentation revision
+        uses: actions/checkout@v4
+        with:
+          repository: guilhermeleste/FormaSL
+          ref: ${{ inputs.docs_ref }}
+          token: ${{ secrets.FORMASL_READ_TOKEN || github.token }}
+          path: _formasl
+          persist-credentials: false
+
+      - name: Prepare Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install known-compatible mdBook
+        shell: bash
+        run: cargo install mdbook --locked --version 0.5.2
+
+      - name: Build, brand, and verify
+        shell: bash
+        env:
+          RELEASE_CHANNEL: ${{ inputs.channel }}
+          DOCS_REF: ${{ inputs.docs_ref }}
+          SITE_ORIGIN: ${{ inputs.site_origin }}
+          TRANSLATIONS_REVIEWED: ${{ inputs.translations_reviewed }}
+        run: |
+          set -euo pipefail
+          if ! [[ "$DOCS_REF" =~ ^[a-fA-F0-9]{40}$ ]]; then
+            echo "docs_ref must be a full commit SHA" >&2
+            exit 2
+          fi
+          if [ "$(git -C _formasl rev-parse HEAD)" != "${DOCS_REF,,}" ]; then
+            echo "Documentation checkout differs from requested SHA" >&2
+            exit 3
+          fi
+          args=(--public public-src/site --out dist --docs-repo _formasl --docs-ref "${DOCS_REF,,}")
+          if [ "$RELEASE_CHANNEL" = "production" ]; then
+            if [ "$TRANSLATIONS_REVIEWED" != "true" ]; then
+              echo "Native translation approval is required for production" >&2
+              exit 4
+            fi
+            args+=(--release --translations-reviewed --origin "$SITE_ORIGIN")
+          fi
+          python3 scripts/build.py "${args[@]}"
+          python3 scripts/smoke_http.py dist
+
+      - name: Archive release evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: forma-${{ inputs.channel }}-evidence
+          path: |
+            dist/RELEASE-MANIFEST.json
+            dist/sitemap.xml
+            dist/robots.txt
+          if-no-files-found: ignore
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=${{ vars.CLOUDFLARE_PROJECT_NAME }} --branch=${{ inputs.channel == 'production' && 'main' || 'preview' }}

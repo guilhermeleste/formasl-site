@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "metrics": {
+    "pages": 69,
+    "assets": 5,
+    "links_checked": 1806,
+    "anchors_checked": 348
+  },
+  "errors": []
+}

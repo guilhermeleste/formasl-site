@@ -3,8 +3,9 @@ name: site-ci
 on:
   pull_request:
   push:
-    branches: [main]
+  workflow_dispatch:
 
+# Validation uses no deployment secrets or untrusted event text in commands.
 permissions:
   contents: read
 
@@ -13,14 +14,46 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - uses: actions/setup-node@v4
         with:
           node-version: '22.20.0'
-      - name: Install dependencies
-        run: npm install --no-audit --no-fund
-      - name: Validate design contract
-        run: npm run design:lint
-      - name: Validate structure
-        run: npm run validate
-      - name: Build static site
-        run: npm run build
+          cache: npm
+          cache-dependency-path: tools/package-lock.json
+      - name: Check Python and browser-runner syntax
+        run: |
+          python3 -m py_compile scripts/*.py
+          node --check tools/qa_browser.cjs
+          node --check tools/check_analytics.cjs
+          node --check tools/csp_check.cjs
+      - name: Test locale selection
+        run: node scripts/test_locale.js
+      - name: Test mdBook pipeline with a fixture, not the real manual
+        run: python3 scripts/test_pipeline.py
+      - name: Build and validate institutional preview
+        run: |
+          python3 scripts/build.py --out dist
+          python3 scripts/validate.py dist
+          python3 scripts/smoke_http.py dist
+      - name: Install locked browser QA dependencies
+        run: |
+          npm ci --prefix tools --ignore-scripts --no-audit --no-fund
+          npm audit --prefix tools --audit-level=high
+          node tools/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Check desktop, mobile viewport and keyboard in Chromium
+        env:
+          QA_REPORT: ${{ runner.temp }}/site-browser-qa.json
+        run: node tools/qa_browser.cjs --directory dist --out "$QA_REPORT"
+      - name: Preserve validation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-ci-evidence
+          path: |
+            ${{ runner.temp }}/site-browser-qa.json
+            dist/RELEASE-MANIFEST.json
+          if-no-files-found: ignore

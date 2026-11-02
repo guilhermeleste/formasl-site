@@ -1,0 +1,25 @@
+{
+  "preview_url": "https://preview.formasl-site.pages.dev",
+  "deployment_url": "https://3f3673d3.formasl-site.pages.dev",
+  "deployment_id_source": "wrangler pages deploy --branch preview @ 2026-10-31T20:17Z",
+  "check_live": "PASS 14/14 (scripts/check_live.py https://preview.formasl-site.pages.dev --docs)",
+  "artifact_identity": "sha256 agreement local dist vs preview for assets/style.css, assets/main.js, docs/forma-docs.css, /pt/ (308 canonicalization of /pt/index.html confirmed byte-identical)",
+  "robots_preview": "User-agent: * Disallow: / (preview artifact built without --origin)",
+  "security_headers": "nosniff, X-Frame-Options DENY, Referrer-Policy strict-origin-when-cross-origin, Permissions-Policy present on preview responses",
+  "browser_qa_real_chromium": {
+    "root_auto_detection": "browser locale pt-BR -> / landed on /pt/ (lang=pt-BR)",
+    "manual_selection_via_select": "/en/ -> choose zh-CN -> /zh-CN/, localStorage forma-site-language=zh-CN",
+    "persistence_beats_detection": "root with stored zh-CN while browser locale pt-BR -> /zh-CN/",
+    "explicit_urls": "/zh-CN/arquitetura, /en/formasl, /pt/documentacao serve correct lang, no locale redirect",
+    "horizontal_overflow_780px": "none on /pt/, /en/componente/formafs, /zh-CN/fundamentos, /docs/, docs code chapter",
+    "keyboard": "first Tab reaches skip-link, then logo, menu-button; focusables ordered",
+    "404": "404 - Forma page with home link",
+    "mdbook_search": "30 results for 'carrier' (index 17.5MB HTTP 200, ~0.7s), results host #mdbook-searchresults",
+    "mdbook_theme": "Coal applied and persisted (html class coal, localStorage mdbook-theme=coal); options Auto/Light/Rust/Coal/Navy/Ayu",
+    "mdbook_structure": "brand breadcrumb .forma-docs-breadcrumb present; forma-docs.css loaded; forma-docs-toc.js loaded; sidebar chapter links 278-401 per page; chapter h1 present (menu-title h1 is native mdBook chrome)",
+    "code_highlight": "language-annotated blocks (rust/bash) receive hljs class + highlight spans; language-text blocks unhighlighted by design; 4098 text / 200+ annotated blocks in book",
+    "note": "untrusted synthetic el.click() events do not drive mdBook handlers; QA used trusted playwright input events"
+  },
+  "scripted_qa_local_dist": "tools/qa_browser.cjs PASS 42 cases (playwright chromium 156; python playwright segfaults on this host, node binding used)",
+  "mdbook_qa_local_dist": "tools/qa_mdbook.cjs: conceptual PT+EN, code-heavy authority chapter (130 pre), normative contract chapter all carry breadcrumb/brand css/toc/h1"
+}
