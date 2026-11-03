@@ -26,12 +26,14 @@ jobs:
           cache-dependency-path: tools/package-lock.json
       - name: Check Python and browser-runner syntax
         run: |
-          python3 -m py_compile scripts/*.py
+          python3 -m py_compile scripts/*.py tools/check_agent_access.py
           node --check tools/qa_browser.cjs
           node --check tools/check_analytics.cjs
           node --check tools/csp_check.cjs
       - name: Test locale selection
         run: node scripts/test_locale.js
+      - name: Test agent inference and training policies
+        run: python3 scripts/test_agent_policy.py
       - name: Test mdBook pipeline with a fixture, not the real manual
         run: python3 scripts/test_pipeline.py
       - name: Build and validate institutional preview

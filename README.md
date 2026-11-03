@@ -77,8 +77,11 @@ A edição técnica principal está em inglês, em `/docs/en/`; o material portu
 ## CI e publicação
 
 - `site-ci` roda em pushes, pull requests e acionamento manual. Valida as fontes institucionais, a fixture do pipeline e a navegação Chromium; não lê o repositório FormaSL privado e não publica no Cloudflare.
-- `Forma Cloudflare Pages (controlled deployment)` é acionado **somente manualmente**, com canal de prévia ou produção e SHA documental explícito.
-- O projeto Cloudflare Pages é `formasl-site`. O deploy integrado usa os secrets `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN` e, quando necessário, `FORMASL_READ_TOKEN`, além da variável `CLOUDFLARE_PROJECT_NAME`.
+- `Forma Cloudflare Pages (controlled deployment)` é acionado **somente manualmente** e permanece disponível para o backend Pages preservado.
+- `wrangler.jsonc` configura a entrega **Workers Static Assets**, sem código de servidor: a configuração padrão publica somente `formasl-site-agent-preview`; `--env production` seleciona `formasl-site-public` e as rotas dos dois hosts públicos. Use Wrangler **4.156.0**. Nenhum push publica automaticamente.
+- Depois do build integrado e dos gates acima, `npx --yes wrangler@4.156.0 deploy --env ''` publica a prévia. A promoção `npx --yes wrangler@4.156.0 deploy --env production` exige autorização do operador e validação prévia; não desligue o Pages antes da troca. As rotas Workers são a chave de reversão para o backend preservado.
+- O projeto Pages legado é `formasl-site`. Seu workflow manual usa os secrets `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN` e, quando necessário, `FORMASL_READ_TOKEN`, além da variável `CLOUDFLARE_PROJECT_NAME`.
+- A política de agentes é gerada pelo build: permite busca e respostas por IA (`ai-input=yes`), mas veda treinamento (`ai-train=no`). O Bot Preference Sync deve permanecer desativado para não sobrepor `use=reference`; os controles de segurança da zona são administrados separadamente pelo MCP.
 - Segredos ficam no GitHub Secrets ou no ambiente local, nunca no código. `.env.example` contém apenas os nomes e valores públicos de configuração.
 - O gate `--release --translations-reviewed` exige aprovação humana das traduções. Não marque esse campo para contornar uma revisão pendente.
 - Não modifique DNS, TLS ou os registros de e-mail Purelymail como parte de uma alteração de conteúdo.

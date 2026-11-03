@@ -1,6 +1,7 @@
 /dist/
 /.cache/
 /.tmp/
+/.wrangler/
 *.pyc
 __pycache__/
 .env

@@ -387,7 +387,25 @@ def add_cf_files(out: Path, origin: str | None) -> None:
         encoding="utf-8",
     )
     if origin:
-        robots = "User-agent: *\nAllow: /\nSitemap: " + origin + "/sitemap.xml\n"
+        robots = (
+            "# Public search and AI answers are permitted; training is not.\n"
+            "User-agent: *\n"
+            "Content-Signal: search=yes,ai-input=yes,ai-train=no\n"
+            "Allow: /\n\n"
+        )
+        # Preserve the training-crawler restrictions previously managed by the zone.
+        training_crawlers = (
+            "Amazonbot", "Applebot-Extended", "Bytespider", "CCBot", "ClaudeBot",
+            "Diffbot", "Google-Extended", "GPTBot", "omgili", "anthropic-ai",
+            "Claude-Web", "cohere-ai", "MistralAI-Training", "meta-externalagent",
+            "GoogleOther", "Baiduspider", "PetalBot", "AwarioSmartBot", "AwarioRssBot",
+            "Google-CloudVertexBot", "QualifiedBot", "Cotoyogi", "ICC-Crawler",
+            "atlassian-bot", "FishBot", "BorderxBot", "NavuBot", "SemrushBot-SWA",
+            "WARDBot", "magpie-crawler", "KimiBot", "CitibotSiteCrawler",
+        )
+        for crawler in training_crawlers:
+            robots += "User-agent: " + crawler + "\nDisallow: /\n\n"
+        robots += "Sitemap: " + origin + "/sitemap.xml\n"
         add_sitemap(out, origin)
     else:
         robots = "User-agent: *\nDisallow: /\n"

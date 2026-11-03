@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "formasl-site-agent-preview",
+  "account_id": "1d071eee7ca9f1fc74a37ef740af1c4c",
+  "compatibility_date": "2026-11-03",
+  "workers_dev": true,
+  "preview_urls": false,
+  "routes": [],
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "env": {
+    "production": {
+      "name": "formasl-site-public",
+      "workers_dev": false,
+      "routes": [
+        { "pattern": "formasl.org/*", "zone_id": "c3dc18477f9d63efa103a3fb58760c8b" },
+        { "pattern": "www.formasl.org/*", "zone_id": "c3dc18477f9d63efa103a3fb58760c8b" }
+      ]
+    }
+  }
+}
