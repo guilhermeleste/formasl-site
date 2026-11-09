@@ -3,6 +3,7 @@
 from __future__ import annotations
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -65,6 +66,13 @@ for i in range(33): (out/f'ch{i}.html').write_text(html)
             "production_sitemap": (artifact / "sitemap.xml").is_file(),
             "sources_unchanged": not (repo / "scripts/book-publication/proj-manifest.json").exists(),
             "localized_canonical": 'rel="canonical" href="https://example.invalid/pt/"' in (artifact / "pt/index.html").read_text(),
+            "extensionless_site_links": all(
+                not href.endswith(".html")
+                for locale in ("pt", "en", "zh-CN")
+                for page in (artifact / locale).rglob("*.html")
+                for href in re.findall(r'<a\b[^>]*\bhref="([^"]+)"', page.read_text(encoding="utf-8"))
+                if not href.startswith(("http:", "https:", "#", "mailto:", "/docs/", "/assets/"))
+            ),
             "analytics_owned_by_cloudflare": all(
                 "static.cloudflareinsights.com/beacon" not in page.read_text()
                 and "data-cf-beacon" not in page.read_text()

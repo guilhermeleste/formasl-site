@@ -172,6 +172,23 @@ def update_site_html(out: Path, origin: str | None, ref: str | None) -> int:
                     return match.group(1) + html.escape(absolute, quote=True) + match.group(4)
 
                 markup = hreflang_regex.sub(absolutize, markup)
+                anchor_href_regex = re.compile(r'(<a\b[^>]*\bhref=")([^"]+)(")')
+
+                def canonical_anchor(match: re.Match[str]) -> str:
+                    href = match.group(2)
+                    if href.startswith(("http:", "https:", "#", "mailto:", "tel:", "data:", "javascript:")):
+                        return match.group(0)
+                    if href.startswith(("/docs/", "/assets/")):
+                        return match.group(0)
+                    parsed = urlsplit(href)
+                    path = parsed.path
+                    if not path.endswith(".html"):
+                        return match.group(0)
+                    new_path = canonical_suffix(path) or "./"
+                    suffix = (("?" + parsed.query) if parsed.query else "") + (("#" + parsed.fragment) if parsed.fragment else "")
+                    return match.group(1) + new_path + suffix + match.group(3)
+
+                markup = anchor_href_regex.sub(canonical_anchor, markup)
                 if 'rel="canonical"' not in markup:
                     markup = markup.replace("</head>",
                         '<link rel="canonical" href="' + html.escape(canonical, quote=True) + '">\n</head>', 1)
@@ -238,10 +255,10 @@ def docs_crumb_markup(locale: str) -> str:
         label, status = "Edicao derivada: portugues", "Portuguese derivative edition"
     return (
         '<nav class="forma-docs-breadcrumb" aria-label="Forma documentation links">'
-        '<span><a href="/' + locale + '/documentacao.html"><span class="forma-docs-brand">FORMA.</span>'
+        '<span><a href="/' + locale + '/documentacao"><span class="forma-docs-brand">FORMA.</span>'
         ' ' + html.escape(label) + '</a></span>'
-        '<span class="forma-docs-languages"><a href="/docs/en/index.html">EN</a>'
-        '<a href="/docs/pt/index.html">PT</a><a href="/docs/zh-CN/index.html">&#31616;&#20307;&#20013;&#25991;</a></span>'
+        '<span class="forma-docs-languages"><a href="/docs/en/">EN</a>'
+        '<a href="/docs/">PT</a><a href="/docs/en/">&#31616;&#20307;&#20013;&#25991;</a></span>'
         '<span class="forma-docs-state">' + html.escape(status) + '</span>'
         '</nav>'
     )
@@ -333,9 +350,9 @@ def link_published_chapters(out: Path) -> dict:
 
 def doc_entry_page(lang: str, docs_built: bool, origin: str | None) -> str:
     entries = {
-        "pt": ("Documentacao Forma", "Edicao portuguesa derivada.", "/docs/index.html", "Abrir manual em portugues"),
-        "en": ("Forma documentation", "English is the primary technical edition.", "/docs/en/README.html", "Open the English manual"),
-        "zh-CN": ("Forma \u6280\u672f\u6587\u6863", "\u7b80\u4f53\u4e2d\u6587\u5b8c\u6574\u6280\u672f\u6587\u6863\u5c1a\u672a\u53d1\u5e03\u3002\u4ee5\u82f1\u6587\u6280\u672f\u7248\u4e3a\u53c2\u8003\u3002", "/docs/en/README.html", "\u67e5\u770b\u82f1\u6587\u624b\u518c"),
+        "pt": ("Documentacao Forma", "Edicao portuguesa derivada.", "/docs/", "Abrir manual em portugues"),
+        "en": ("Forma documentation", "English is the primary technical edition.", "/docs/en/", "Open the English manual"),
+        "zh-CN": ("Forma \u6280\u672f\u6587\u6863", "\u7b80\u4f53\u4e2d\u6587\u5b8c\u6574\u6280\u672f\u6587\u6863\u5c1a\u672a\u53d1\u5e03\u3002\u4ee5\u82f1\u6587\u7248\u4e3a\u53c2\u8003\u3002", "/docs/en/", "\u67e5\u770b\u82f1\u6587\u624b\u518c"),
     }
     title, message, target, cta = entries[lang]
     if not docs_built:
@@ -351,7 +368,7 @@ def doc_entry_page(lang: str, docs_built: bool, origin: str | None) -> str:
         "<title>" + html.escape(title) + "</title><link rel=\"stylesheet\" href=\"/assets/style.css\">"
         "</head><body style=\"background:#efe8dd;color:#192122;min-height:100svh;\">"
         "<main style=\"max-width:700px;margin:12vh auto;padding:24px\">"
-        "<a href=\"/" + lang + "/documentacao.html\">FORMA. / " + html.escape(title) + "</a>"
+        "<a href=\"/" + lang + "/documentacao\">FORMA. / " + html.escape(title) + "</a>"
         "<h1 style=\"font-size:clamp(44px,8vw,72px);letter-spacing:-.06em;margin:24px 0\">" + html.escape(title) + "</h1>"
         "<p style=\"font-size:20px;line-height:1.6\">" + html.escape(message) + "</p>"
         "<p style=\"margin-top:32px\"><a href=\"" + html.escape(link, quote=True) + "\">" + html.escape(cta) + " &rarr;</a></p>"
