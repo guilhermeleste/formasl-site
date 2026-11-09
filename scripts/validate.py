@@ -116,6 +116,8 @@ def verify_site(root: Path, errors: list[str]) -> dict:
                 continue
             if target is None:
                 continue
+            if not target.is_file() and not target.is_dir() and target.with_suffix(".html").is_file():
+                target = target.with_suffix(".html")
             metrics["links_checked"] += 1
             if target.is_dir():
                 target = target / "index.html"
